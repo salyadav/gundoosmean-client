@@ -21,13 +21,14 @@ const levelManager = new LevelManager();
 const TAUNT_TOLERANCE = 2;
 const LOCALSTORAGE_HIGHSCORE_KEY = "gundooz-highscore";
 const LOCALSTORAGE_USERNAME_KEY = "gundooz-username";
+const RESTRICTED_KEYWORDS = ["null", "undefined"];
 
 let gametimer = null;
-let timeout = {
-    levelSubmitTimeout: null, 
-    gridViewTimeout: null, 
-    tauntViewTimeout: null 
-}
+const timeoutMap = new Map();
+timeoutMap.set('levelSubmitTimeout', null);
+timeoutMap.set('gridViewTimeout', null);
+timeoutMap.set('tauntViewTimeout', null);
+
 let currentSectionView = 'game-dashboard';
 
 const showRules = function() {
@@ -56,13 +57,23 @@ document.getElementById('playOldUserBtn').addEventListener('click', playReturnin
 const playNewUser = function() {
     const nameField = document.getElementById('fname');
     const username = nameField.value.toLowerCase();
+    const regex = new RegExp('^[a-zA-Z0-9_-]*$');
 
     //Invalid username
-    if(!username || username.length<5 || username.length>30) {
+    if(!username || username.length<5 || username.length>30 || !regex.test(username)) {
         nameField.style.animation = 'highlightcell 0.6s 2';
+        const responseEl = document.getElementById('usernameResponse');
+        responseEl.classList.remove('hideComponent');
+
+        if (!username) {
+            responseEl.innerText = `Even "He who must not be named" had a name.`;
+        } else {
+            responseEl.innerText = `Common, give us a cool name between 5-30 characters, and don't try anything spooky!`;
+        }
         return;
     }
 
+    responseEl.classList.add('hideComponent');
     _addLoadingIcon(document.getElementById('playNewUserBtn'));
     //Unique username from database
     checkForUniqueUserName(username)
@@ -100,7 +111,7 @@ const levelSubmit = function(e) {
         _showScoreView();
 
         //show the answer validation for 2 seconds and then move on
-        timeout.levelSubmitTimeout = setTimeout(()=>{
+        const levelSubmitTimeout = setTimeout(()=>{
             if (scoreCard._missed>15) {
                 _gameOver();
             } else {
@@ -111,6 +122,7 @@ const levelSubmit = function(e) {
                     _showGridView(levelManager._currentLevel);
             } 
         },2000);
+        timeoutMap.set('levelSubmitTimeout', levelSubmitTimeout);
     } else if(e.target.id === "reBtn") { 
         //TODO: show warning and ask for confirmation
         scoreCard.reset();
@@ -253,7 +265,7 @@ const _showGridView = function(level) {
         centralGrid.querySelector('#gridid_'+key).classList.add(cellStyle);
     }
 
-    timeout.gridViewTimeout = setTimeout(function(set, root, style){
+    const gridViewTimeout = setTimeout(function(set, root, style){
         for(let key of set) {
             root.querySelector('#gridid_'+key).classList.remove(style);
         }
@@ -263,6 +275,7 @@ const _showGridView = function(level) {
         //enable click only when fishes dissappear
         root.addEventListener('click', cellClicked);
     }, levelMetrix._displayTime, targetSet, centralGrid, cellStyle);
+    timeoutMap.set('gridViewTimeout', gridViewTimeout);
 
     //show level number
     _showLevelView();
@@ -277,10 +290,7 @@ const _showGridView = function(level) {
 
 const _gameOver = function() {
     //clear all timers/timeout
-    //TODO: Rectify
-    Object.keys(timeout).forEach(key => {
-        clearTimeout(key);
-    });
+    timeoutMap.forEach((val, key) => clearTimeout(val));
     
     //display gameover view
     const finalscore = calculateFinalScore(scoreCard);
@@ -310,9 +320,9 @@ const _constructAvatar = function(username) {
 /**
  * TODO
  */
-const _makeFishAnimationStatic = function() {
-    console.log('make fish animation static');
-}
+// const _makeFishAnimationStatic = function() {
+//     console.log('make fish animation static');
+// }
 
 const _addLoadingIcon = function(parentId) {
     parentId.querySelector('.loader').classList.remove('hideComponent');
@@ -358,10 +368,11 @@ const _displayTauntView = function() {
     penguin.removeAttribute('class');
     penguin.setAttribute('class', penguinSelector());
 
-    timeout.tauntViewTimeout = setTimeout(()=> {
+    const tauntViewTimeout = setTimeout(()=> {
         _showSectionById("game-playground");
         _showGridView(levelManager._currentLevel);
     }, 4000);
+    timeoutMap.set('tauntViewTimeout', tauntViewTimeout);
 }
 
 const _showLeaderboardView = function(success, data=[]) {
@@ -424,9 +435,6 @@ const _musicBtnClicked = function() {
     }
 }
 
-/**
- * TODO 
- * */
 const _showStoryView = function(closeCallback) {
     _showSectionById('gondoozStoryWindow');
     const storyWindow = document.getElementById('gondoozStoryWindow');

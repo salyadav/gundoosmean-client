@@ -100,7 +100,7 @@ input {
     @include small-font;
     padding: 10px;
     margin: 10px 0;
-    width: 80%;
+    width: 70vmin;
     border: 5px solid $darblue-color; 
     border-radius: 10px;
 
@@ -226,7 +226,7 @@ p {
         background-color: $white-color;
         padding: 20px;
         border-radius: 20px;
-        width: 60vmin;
+        width: 70vw;
 
         .close {
             @include green-border-font;
@@ -251,7 +251,7 @@ p {
     h2 {
         @include medium-font;
         @include green-border-font;
-        margin: 0 10px;
+        margin: 10px;
     }
 }
 
@@ -381,12 +381,8 @@ p {
 #gondoozStoryWindow {
     z-index: 200;
     p {
-    //     line-height: 3.5vh;
-        // @include small-font;
         padding: 0 10px;
         @include blue-border-font;
-    //     font-family: 'Patrick Hand', cursive;
-    //     font-weight: 800;
     }
 }
 
