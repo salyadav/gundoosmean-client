@@ -58,11 +58,11 @@ const playNewUser = function() {
     const nameField = document.getElementById('fname');
     const username = nameField.value.toLowerCase();
     const regex = new RegExp('^[a-zA-Z0-9_-]*$');
+    const responseEl = document.getElementById('usernameResponse');
 
     //Invalid username
     if(!username || username.length<5 || username.length>30 || !regex.test(username)) {
         nameField.style.animation = 'highlightcell 0.6s 2';
-        const responseEl = document.getElementById('usernameResponse');
         responseEl.classList.remove('hideComponent');
 
         if (!username) {
@@ -296,6 +296,9 @@ const _gameOver = function() {
     const finalscore = calculateFinalScore(scoreCard);
     _showSectionById('game-over');
     
+    _showSubmitFeedbackBtn();
+    _toggleControlPanelView();
+    
     //update and display highscore
     document.getElementById('game-over-fed').innerText = scoreCard._scored;
     document.getElementById('game-over-starved').innerText = scoreCard._missed;
@@ -308,8 +311,6 @@ const _gameOver = function() {
     currentScoreEl.innerText = finalscore;
     if(finalscore <= 0) currentScoreEl.classList.add('red-border-font');
     else currentScoreEl.classList.add('green-border-font');
-    _showSubmitFeedbackBtn();
-    _toggleControlPanelView();
 }
 
 const _constructAvatar = function(username) {
