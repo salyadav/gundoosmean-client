@@ -3,8 +3,7 @@ import axios from 'axios';
 const CORRECT_SCORE = 10;
 const MISSED_SCORE = -10;
 const WRONGED_SCORE = -5;
-// const BASE_URL = "http://localhost:5000/";
-const BASE_URL = "/.netlify/functions/";
+const BASE_URL = "https://gundoosmean-server.herokuapp.com/";
 
 const TARGET_COUNT_MAP = (function(){ //Map because - might want to add other attributes to level later
     const countMap = new Map();
