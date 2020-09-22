@@ -1,0 +1,79 @@
+
+.game-grid {
+    display: grid;
+    grid-gap: 0;
+    height: 100%;
+}
+
+.grid-cell {
+    box-sizing: border-box;
+    border: 1px solid #000;
+    cursor: pointer;
+    background-position: center;
+}
+
+.top-edge-cell {
+    border-top: 1.5px solid #000;
+}
+
+.bottom-edge-cell {
+    border-bottom: 1.5px solid #000;
+}
+
+.right-edge-cell {
+    border-right: 1.5px solid #000;
+}
+
+.left-edge-cell {
+    border-left: 1.5px solid #000;
+}
+
+.cell-image {
+    background-size: contain;
+    z-index: 1000;
+    background-repeat: no-repeat;
+}
+
+.cell-fish-1 {
+    background-image: url('../assets/fish_1_right.svg');
+}
+
+.cell-fish-2 {
+    background-image: url('../assets/fish_5_right.svg');
+}
+
+.cell-fish-3 {
+    background-image: url('../assets/jellyfish.svg');
+}
+
+.cell-fish-4 {
+    background-image: url('../assets/fish_6_right.svg');
+}
+
+.cell-fish-5 {
+    background-image: url('../assets/fish_7_left.svg');
+}
+
+.cell-fish-6 {
+    background-image: url('../assets/fish_2_left.svg');
+}
+
+.cell-fish-7 {
+    background-image: url('../assets/starfish.svg');
+}
+
+.cell-catch {
+    background-image: url('../assets/nuts.svg');
+}
+
+.cell-correct {
+    background-image: url('../assets/001-check.svg');
+}
+
+.cell-wrong {
+    background-image: url('../assets/002-cross.svg');
+}
+
+.cell-missed {
+    background-image: url('../assets/003-warning.svg');
+}

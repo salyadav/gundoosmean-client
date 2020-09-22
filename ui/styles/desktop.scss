@@ -1,0 +1,103 @@
+@import './animations-desktop';
+@import './animations-common';
+@import './common';
+@import './checkboxgrid';
+
+.close {
+    cursor: pointer;
+}
+
+.game-board {
+    z-index: 10;
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    
+    #centralGrid {
+        height: 80vh;
+        width: 80vh;
+        margin: 0 10px;
+    }
+
+    #levelSubmitBtns, .score-card {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        
+        & > *:first-child {
+            margin-bottom: 10px;
+            text-align: start;
+        }
+    }
+
+    .score-card {
+        margin-bottom: 10px;
+        text-align: start;
+    }
+
+    #levelSubmitBtns {
+        #reBtn {
+            position: relative;
+            bottom: 50vh;
+        }
+    }
+}
+
+#game-taunts {
+    .taunt-bubble-text {
+        width: 50vw;
+        border-radius: 20% 40%;        
+    }
+
+    .taunt-bubble-ext {
+        width: 50px;
+        height: 50px;
+    }
+
+    #taunt-icon {
+        width: 30vh;
+        height: 30vh;
+        left: 25vw;
+    }
+}
+
+#game-over {
+    .score-calc-img {
+        padding: 12px;
+        background-origin: content-box;
+        cursor: pointer;
+        transition: all 0.3s ease-out;
+
+        &:hover {
+            transform: scale(1.2, 1.2);
+        }
+    }
+}
+
+#game-controls {
+    position: absolute;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: center;
+    & > * {
+        margin: 5px;
+        cursor: pointer;
+    }
+}
+
+.loader {
+    width: 40px;
+    vertical-align: center;
+}
+
+.send-msg {
+    cursor: pointer;
+    transition: all 0.3s ease-out;
+
+    &:hover {
+        transform: scale(1.05, 1.05);
+    }
+}

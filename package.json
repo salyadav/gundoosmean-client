@@ -1,0 +1,31 @@
+{
+  "name": "gundoozmean",
+  "version": "1.0.0",
+  "description": "Client side code",
+  "main": "./ui/index.js",
+  "scripts": {
+    "build": "parcel build index.html --public-url ./",
+    "serve": "parcel index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "saloni yadav",
+  "license": "ISC",
+  "bugs": {
+    "url": ""
+  },
+  "homepage": "",
+  "dependencies": {
+    "@babel/core": "^7.11.6",
+    "@babel/polyfill": "^7.11.5",
+    "axios": "^0.20.0",
+    "sass": "^1.26.10"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.12.4",
+    "sass": "^1.26.10",
+    "npm-run-all": "^4.1.5"
+  }
+}

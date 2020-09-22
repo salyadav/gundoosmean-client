@@ -1,0 +1,51 @@
+.bouncerimg {
+    height: 50vh;
+    padding: 6vh;
+}
+
+.fish-swimming {
+    // cursor: pointer;
+    display: flex;
+    flex-direction: column;
+
+    img{
+        height: 8vw;
+        width: 8vw;
+        position: absolute;
+    }
+}
+
+.fish1 {
+    top: 0%;
+    animation-duration: 40s;
+}
+
+.fish2 {
+    top: 15%;
+    animation-duration: 20s;
+}
+
+.fish4 {
+    top: 75%;
+    left: 92%;
+    animation-duration: 25s;
+}
+
+.fish5 {
+    top: 85%;
+    animation-duration: 35s;
+}
+
+.bubble {
+    width: 100px !important;
+    bottom: -80px;
+}
+
+.bubble1 {
+    left: 10vw;
+}
+
+.bubble2 {
+    animation-delay: 2s;
+    right: 10vw;
+}

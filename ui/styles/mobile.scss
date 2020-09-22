@@ -1,0 +1,70 @@
+@import './animations-mobile';
+@import './animations-common';
+@import './common';
+@import './checkboxgrid';
+
+* {
+    max-height: 100vh;
+    max-width: 100vw;
+}
+
+.game-board {
+    z-index: 10;
+    display: flex; 
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .score-card {
+        width: 100vw;
+        display: flex;
+        & > * {
+            flex: 1;
+        }
+    }
+    
+    #centralGrid {
+        height: 95vw;
+        width: 95vw;
+        margin: 10px 0;
+    }
+}
+
+#game-taunts {
+    .taunt-bubble-text {
+        border-radius: 50%;
+    }
+
+    .taunt-bubble-ext {
+        width: 20px;
+        height: 20px;
+    }
+
+    #taunt-icon {
+        left: 0;
+        width: 20vh;
+        height: 20vh;
+    }
+}
+
+#game-over {
+    .score-board li {
+        flex-direction: column;
+    }
+}
+
+#game-controls {
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    width: 100vw;
+    justify-content: center;
+    & > * {
+        margin: 5px;
+    }
+}
+
+.loader {
+    width: 20px;
+    vertical-align: center;
+}

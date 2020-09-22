@@ -1,0 +1,64 @@
+.bounce {
+    animation-name: bounce;
+    animation-timing-function: ease;
+    animation-duration: 2.5s;
+    animation-iteration-count: infinite;
+    transform-origin: bottom;
+}
+
+@keyframes bounce {
+    0% { transform: scale(1,1) translateY(0); }
+    10% { transform: scale(1.1,0.9) translateY(0px); }
+    20% { transform: scale(0.9,1.1) translateY(-20px); }
+    40% { transform: scale(1,1) translateY(-40px); }
+    55% { transform: scale(1.1,0.9) translateY(0px); }
+    68% { transform: scale(1.05,0.95) translateY(-7px); }
+    100% { transform:  scale(1,1) translateY(0); }
+}
+
+.grass {
+    bottom: 0%;
+}
+
+@keyframes highlightcell {
+    0% { transform: scale(1); } 
+    50% { transform: scale(1.1); } 
+    100% { transform: scale(1); } 
+}
+
+.swim-right {
+    animation-name: swimright;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    transform-origin: left;
+}
+
+@keyframes swimright {
+    0% { transform: translateX(-10vw); }
+    100% { transform: translateX(100vw); }
+}
+
+.swim-left {
+    animation-name: swimleft;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    transform-origin: right;
+}
+
+@keyframes swimleft {
+    0% { transform: translateX(10vw); }
+    100% { transform: translateX(-110vw); }
+}
+
+.float-up {
+    animation-name: floatup;
+    animation-timing-function: ease-in;
+    animation-iteration-count: infinite;
+    transform-origin: bottom;
+    animation-duration: 20s;
+}
+
+@keyframes floatup {
+    0% { transform: translateY(0vh);}
+    100% { transform: translateY(-110vh);}
+}

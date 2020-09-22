@@ -1,0 +1,395 @@
+$black-color: #000;
+$aquablue-color: #4974c4;
+$darblue-color: #1d2f52;
+$seagreen-color: #409664;
+$darkred-color: #964040;
+$white-color: #ffffff;
+$placeholder-color:  rgba(181, 199, 231, 0.396);
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: $aquablue-color; 
+}
+
+@mixin font-border($border-color){
+    -webkit-text-stroke-width: 1.5px; 
+    -webkit-text-stroke-color: $border-color;
+    letter-spacing: 1.6px;
+}
+@mixin green-border-font {
+    @include font-border($black-color);
+    color: $seagreen-color;
+}
+
+@mixin red-border-font {
+    @include font-border($black-color);
+    color: #b94242;
+}
+
+@mixin blue-border-font {
+    color: #3F51B5;
+    @include font-border(#3f51b5b8);
+}
+
+@mixin large-font {
+    font-size: 10vmin;
+}
+
+@mixin medium-font {
+    font-size: 6vmin;
+}
+
+@mixin small-font {
+    font-size: 4.5vmin;
+}
+
+@mixin background-img-config {
+    background-repeat: no-repeat;
+    background-size: contain;
+    // background-origin: content-box;
+}
+
+* {
+    font-family: 'Luckiest Guy', cursive;
+    overflow: hidden;
+    text-align: center;
+}
+
+body {
+    margin: 0px;
+    user-select: none;
+    background-color: $aquablue-color;
+}
+
+section {
+    width: 100vw;
+    height: 100vh;
+}
+
+button {
+    @include medium-font;
+    padding: 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    cursor: pointer;
+
+    &.blueBtn {
+        color: $black-color;
+        background-color: #2f4d87;
+    }
+
+    &.blackBtn {
+        color: $aquablue-color;
+        background-color: $black-color;
+    }
+
+    &:active {
+        background-color: $darblue-color;
+    }
+}
+
+ul {
+    padding: 0px;
+    margin: 0px;
+}
+
+input {
+    @include small-font;
+    padding: 10px;
+    margin: 10px 0;
+    width: 80%;
+    border: 5px solid $darblue-color; 
+    border-radius: 10px;
+
+    &::placeholder {
+        color: $placeholder-color;
+    }
+}
+
+textarea {
+    @include small-font;
+    padding: 10px;
+    margin: 10px 0;
+    width: 80%;
+    border: 5px solid $darblue-color; 
+    border-radius: 10px;
+    text-align: start;
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+    &::placeholder {
+        color: $placeholder-color;
+    }
+}
+
+table {
+    width: 100%;
+    max-height: 60%;
+    border: 1px solid black;
+
+    th {
+        @include green-border-font;
+    }
+}
+
+p {
+    text-align: left;
+    @include small-font;
+}
+
+.music {
+    background-image: url('../assets/music.svg');
+    // background-image: url('../assets/icons8-audio-48.png');
+}
+
+.no-music {
+    background-image: url('../assets/no-music.svg');
+}
+
+.send-heart {
+    background-image: url('../assets/heart.svg');
+}
+
+.story {
+    background-image: url('../assets/script.svg');
+}
+
+.control-btn {
+    @include background-img-config;
+    background-origin: content-box;
+    border-radius: 20%;
+    background-color: $aquablue-color;
+    width: 10vmin;
+    height: 10vmin;
+    z-index: 10;
+    padding: 5px;
+    &:active {
+        background-color: $black-color;
+    }
+}
+
+.taunt-penguine-1 {
+    background-image: url('../assets/penguin_1.svg');
+}
+
+.taunt-penguine-2 {
+    background-image: url('../assets/penguin_2.svg');
+}
+
+.taunt-penguine-3 {
+    background-image: url('../assets/penguin_3.svg');
+}
+
+.taunt-penguine-4 {
+    background-image: url('../assets/penguin_4.svg');
+}
+
+.taunt-penguine-5 {
+    background-image: url('../assets/penguin_5.svg');
+}
+
+.green-border-font {
+    @include green-border-font;
+}
+
+.red-border-font {
+    @include red-border-font;
+}
+
+.dashboard {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+    align-items: center;
+    justify-content: center;
+}
+
+.section-head {
+    @include large-font;
+    margin: 20px;
+}
+
+.section-subhead {
+    @include medium-font;
+    margin: 0 20px;
+}
+
+.window {
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.4);
+
+    .popup {
+        background-color: $white-color;
+        padding: 20px;
+        border-radius: 20px;
+        width: 60vmin;
+
+        .close {
+            @include green-border-font;
+            @include large-font;
+            font-weight: bold;
+        }
+    }
+}
+
+.questionmark-img {
+    @include background-img-config;
+    background-image: url('../assets/help.svg');
+}
+
+#game-rules {
+    p {
+        padding: 0 11vmin 10px 11vmin;
+    }
+}
+
+#game-newuser {
+    h2 {
+        @include medium-font;
+        @include green-border-font;
+        margin: 0 10px;
+    }
+}
+
+#game-playground {
+    @include medium-font;
+    
+    #game-avatar {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        display: flex;
+        align-items: center;
+        & > * {
+            margin: 5px;
+        }
+    
+        .player-icon {
+            width: 10vmin;
+            height: 10vmin;
+        }
+    }
+    
+    #game-timer {
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        margin: 10px;
+    }
+    
+    #game-level {
+        position: absolute;
+        bottom: 10px;
+        display: flex;
+        justify-content: center;
+    }
+}
+
+#game-taunts {
+    .taunt-bubble-text {
+        background-color: $white-color;
+        border: solid 3px $darblue-color;
+        padding: 50px;
+        margin: 30px;
+    }
+
+    .taunt-bubble-ext {
+        margin: 5px;
+        border: solid 3px $darblue-color;
+        border-radius: 50%;
+        background-color: $white-color;
+    }
+
+    #taunt-icon {
+        @include background-img-config;
+        position: absolute;
+        bottom: 0;
+        z-index: 200;
+    }
+}
+
+#game-over {
+    .score-board {
+        border: solid 2px;
+        border-radius: 10px;
+        display: flex;
+        margin: 10px;
+        li {
+            @include small-font;
+            flex: 1;
+            display: flex;
+            
+            div {
+                flex: 1;
+                padding: 10px;
+            }
+        }
+    }
+
+    .score-calc {
+        height: 15vmin;
+        display: flex;
+        align-items: center;
+        
+        h2 {
+            @include medium-font;
+            @include green-border-font;
+            margin-right: 10px;
+        }
+        
+        &-img {
+            height: 35px;
+            width: 35px;
+        }
+    }
+}
+
+#scoreMathWindow, #leaderboardWindow, 
+#sendMessageWindow {
+    z-index: 200;
+    h2, h3, h1, li, table, label {
+        @include small-font;
+    }
+
+    h3, th, label {
+        @include green-border-font;
+    }
+
+    textarea, input {
+        font-family: 'Patrick Hand', cursive;
+        resize: none;
+    }
+
+    .send-msg {
+        width: 90%;
+        margin: 0 10px;
+        min-height: 10vmin;
+        background-image: url('../assets/paper-plane.svg');
+        background-origin: content-box;
+        background-position: right;
+        background-color: $placeholder-color;
+        border-radius: 10px;
+        padding: 10px;
+        @include background-img-config;
+    }
+}
+
+#gondoozStoryWindow {
+    z-index: 200;
+    p {
+    //     line-height: 3.5vh;
+        // @include small-font;
+        padding: 0 10px;
+        @include blue-border-font;
+    //     font-family: 'Patrick Hand', cursive;
+    //     font-weight: 800;
+    }
+}
+
+.hideComponent {
+    display: none;
+}

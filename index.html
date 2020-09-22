@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gundoo's Mean</title>
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Patrick+Hand&display=swap" rel="stylesheet">
+    <link rel="icon" href="./ui/assets/favicon.png">
+    <link rel='stylesheet' media='screen and (min-width: 1025px)' href='./ui/styles/desktop.scss' />
+    <link rel='stylesheet' media='screen and (max-width: 1024px)' href='./ui/styles/mobile.scss' />
+</head>
+<body>
+    <div id='game-controls'>
+        <div id='musicBtn' class='control-btn music' title='Control music'></div>
+        <div id='storyBtn' class='control-btn story' title='Gundooz story'></div>
+        <div id='heartBtn' style='visibility: hidden;' class='control-btn send-heart' title='Send some love!'></div>
+    </div>
+    <section id='game-dashboard' class='dashboard'>
+        <h1 class='section-head'>Gundoo's Mean</h1>
+        <img class='bouncerimg bounce' src="./ui/assets/dashboard_penguin.svg" alt="Bouncing penguine">
+        <button id='showRulesBtn' class='blackBtn'>Rules</button>
+    </section>
+    <section id='game-rules' class='hideComponent'>
+        <h1 class='section-head'>Game rules</h1>
+        <p>
+            You will see some fish surfacing, asking for food.
+            They stay only for a while and then... Poof! Vanish.
+            Your goal is to remember their locations and feed them some nuts.
+            Select all the cells which had fishes and click- GO!
+            Honey, you can't afford to make too many mistakes and you don't have forever!
+        </p>
+        <button id='userConfigBtn' class='blackBtn'>Got it!</button>
+    </section>
+    <section id='game-returninguser' class='hideComponent'>
+        <h1 class='section-head'>Honorable <span id='playerName'>Player</span>, 
+            <br><span class='section-subhead'>Welcome back!</span></h1>
+        <div>
+            <button id='createNewUserBtn' class='blackBtn'>New player</button>
+            <button id='playOldUserBtn' class='blackBtn'>Let's Play!
+                <img class='loader hideComponent' src="./ui/assets/loading.gif" alt="loading..." />
+            </button>
+        </div>
+    </section>
+    <section id='game-newuser' class='hideComponent'>
+        <h1 class='section-head'>What shall we call you?</h1>
+        <div>
+            <label for="fname" class='section-subhead'>Honorable-</label><br>
+            <input id='fname' type='text' minlength="5" maxlength="30" autocomplete="off" spellcheck="false" placeholder='The creative you...'></input>
+        </div>
+        <h2 id='usernameResponse' class='hideComponent'></h2>
+        <!-- <div class='configBtn'> -->
+            <button id='playNewUserBtn' class='blackBtn'>Let's Play!
+                <img class='loader hideComponent' src="./ui/assets/loading.gif" alt="loading..." />
+            </button>
+        <!-- </div> -->
+    </section>
+    <section id='game-playground' class='hideComponent'>
+        <!-- add grid -->
+        <div id='game-avatar'>
+            <img src='./ui/assets/favicon.png' class='player-icon'>
+            <div class='player-name'></div>
+        </div>
+        <div id='game-timer'>
+            <!-- countdown timer -->
+            3:00
+        </div>
+        <div id='game-level'>
+            Level 1
+        </div>
+        <div class='game-board'>
+            <div class='score-card'>
+                <div class='green-border-font'>Fed: <span id='scored'>0</span></div>
+                <div class='red-border-font'>Missed: <span id='missed'>0</span></div>
+            </div>
+            <div id='centralGrid'>
+                <!-- <checkbox-grid row='4' column='4'></checkbox-grid> -->
+            </div>
+            <div id='levelSubmitBtns'>
+                <button id='reBtn' class='blueBtn'>Re :(</button>
+                <button id='goBtn' class='blackBtn'>Go :)</button>
+            </div>
+        </div>
+    </section>
+    <section id='game-taunts' class='hideComponent'>
+        <div class='taunt-bubble'>
+            <div class='taunt-bubble-text section-subhead'>
+                Yo brain so smoll, it's a floppy disk.
+            </div>
+            <div class='taunt-bubble-ext' style='margin-left:34vw;'></div>
+            <div class='taunt-bubble-ext' style='margin-left:24vw;'></div>
+        </div>
+        <div id='taunt-icon'>
+        </div>
+    </section>
+    <section id='game-over' class='hideComponent'>
+        <h1 class='section-head'>HEY SLOW POKE, GAME OVER.</h1>
+        <div class='score-calc'>
+            <h2>Score: <span id='current-score'></span></h2>
+            <div id='scoreMathBtn' class='questionmark-img score-calc-img'></div>
+        </div>
+        <ul class='score-board'>
+            <li>
+                <div>
+                    <label>Fish fed</label>
+                    <div id='game-over-fed'>0</div>
+                </div>
+                <div>
+                    <label>Fish starved</label>
+                    <div id='game-over-starved'>0</div>
+                </div>
+            </li>
+            <li>
+                <div>
+                    <label>Wasted food</label>
+                    <div id='game-over-wasted'>0</div>
+                </div>
+                <div>
+                    <label>Personal best</label>
+                    <div id='game-over-highscore'>0</div>
+                </div>
+            </li>
+        </ul>
+        <button id='leaderboardBtn' class='blackBtn'>Top 10</button>
+    </section>
+    <section id='scoreMathWindow' class='window hideComponent'>
+        <div class='popup'>
+            <h2>Looks like you are interested in some math! </h2>
+            <div>
+                <h3>This is how your score is calculated: </h3>
+                <ul>
+                    <li><span class='green-border-font'>+10</span> for every fish fed.</li>
+                    <li><span class='red-border-font'>-10</span> for every fish starved.</li>
+                    <li><span class='red-border-font'>-5</span> for every wastefully thrown food.</li>
+                </ul>
+            </div>
+            <div class="close">&times;</div>
+        </div>
+    </section>
+    <section id='leaderboardWindow' class='window hideComponent' style='overflow-y:scroll'>
+        <div class='popup'>
+            <h2>Did you make it to the top ten?</h2>
+            <img class='loader' src="./ui/assets/loading.gif" alt="loading..." />
+            <table class='hideComponent'>
+                <!-- <tr>
+                    <th>#</th>
+                    <th>Savior</th>
+                    <th>Score</th>
+                </tr> -->
+            </table>
+            <div class="close">&times;</div>
+        </div>
+    </section>
+    <section id='sendMessageWindow' class='window hideComponent'>
+        <div class='popup'>
+            <h1>Love? Hate? Suggestions? I am all ears!</h1>
+            <div>
+                <label for='email' class='section-subhead'>Email <span class='red-border-font'>(Absofruitly optional)</span>:</label>
+                <input type='email' placeholder='email...'></input>
+            </div>
+            <div>
+                <label for='message' class='section-subhead'>Message:<span class='red-border-font'>*</span></label>
+                <textarea id='message' placeholder='Do you wolf me?'></textarea>
+            </div>
+            <img class='loader hideComponent' src="./ui/assets/loading.gif" alt="loading..." />
+            <div id='sendMsgBtn' class='send-msg'></div>
+            <div class="close">&times;</div>
+        </div>
+    </section>
+    <section id='gondoozStoryWindow' class='window hideComponent'>
+        <div class='popup'>
+            <h1 class='section-subhead'>Gundoo'z Story</h1>
+            <p>
+                I am Gundoo Paravai, the roundest penguin in Antarctica.
+                I am starving here, and it's all your fault. 
+                Now go and make up for it. Feed my fish.
+            </p>
+            <div class="close">&times;</div>
+        </div>
+    </section>
+    <div id='game-aquarium'>
+        <div class='fish-swimming'>
+            <img src='./ui/assets/whale_2_right.svg' class='fish1 swim-right'>
+            <img src='./ui/assets/fishes_3_right.svg' class='fish2 swim-right'>
+            <img src='./ui/assets/octopus.svg' class='fish4 swim-left'>
+            <img src='./ui/assets/fish_4_right.svg' class='fish5 swim-right'>
+        </div>
+        <div class='fish-swimming'>
+            <img src='./ui/assets/seaweed_2.svg' class='grass'>
+            <img src='./ui/assets/seaweed_2.svg' class='grass' style='right:0%'>
+            <img src='./ui/assets/bubbles.svg' class='bubble bubble1 float-up'>
+            <img src='./ui/assets/bubbles.svg' class='bubble bubble2 float-up'>
+        </div>
+    </div>
+    <audio class='audio' src='./ui/assets/music_sugarcookie.mp3' type='audio' loop autoplay></audio>
+    <!-- <audio id='audio-ocean' src='./assets/ocean.mp3' type='audio' loop></audio> -->
+    <script src="./ui/js/index.js"></script>
+</body>
+</html>
