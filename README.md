@@ -15,20 +15,20 @@ For the programmers interested to contribute-
 
 Todo:
 1. Code, security, performance -
--- add assets to netlify CDN to improve access time.
+a. add assets to netlify CDN to improve access time.
 
 2. Functionality -
--- show warning and ask for confirmation on RE button --P2
--- Return current user rank --P2
+a. show warning and ask for confirmation on RE button --P2
+b. Return current user rank --P2
 
 3. Ui/ux -
--- all window size will have diff width. add scrollable-y to all just in case  --P1
--- add pulse styling to timer for last 10 seconds 
--- if score is in negative- prompt taunt
--- Support multilanguage support by using properties files for all texts
--- change fish animation on click of the fish (move fast out of screen) - remove listener when on playground section
--- Add taunt penguin at the game-over screen
--- Change Gundoo's story
+a. all window size will have diff width. add scrollable-y to all just in case  --P1
+b. add pulse styling to timer for last 10 seconds 
+c. if score is in negative- prompt taunt
+d. Support multilanguage support by using properties files for all texts
+e. change fish animation on click of the fish (move fast out of screen) - remove listener when on playground section
+f. Add taunt penguin at the game-over screen
+g. Change Gundoo's story
 
 FYI to remember-
 
