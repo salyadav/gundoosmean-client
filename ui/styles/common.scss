@@ -376,6 +376,11 @@ p {
         padding: 10px;
         @include background-img-config;
     }
+
+    table {
+        overflow-y: scroll;
+        overflow-x: hidden;
+    }
 }
 
 #gondoozStoryWindow {
