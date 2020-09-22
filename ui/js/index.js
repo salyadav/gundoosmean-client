@@ -17,7 +17,11 @@ import {
 
 const scoreCard = new ScoreCard();
 const levelManager = new LevelManager();
+
 const TAUNT_TOLERANCE = 2;
+const LOCALSTORAGE_HIGHSCORE_KEY = "gundooz-highscore";
+const LOCALSTORAGE_USERNAME_KEY = "gundooz-username";
+
 let gametimer = null;
 let timeout = {
     levelSubmitTimeout: null, 
@@ -32,9 +36,9 @@ const showRules = function() {
 document.getElementById('showRulesBtn').addEventListener('click', showRules);
 
 const showUserConfigView = function() {
-    if(localStorage.getItem('tiptaptoe-username')) {
+    if(localStorage.getItem(LOCALSTORAGE_USERNAME_KEY)) {
         const section = document.getElementById('game-returninguser');
-        section.querySelector('#playerName').innerText = localStorage.getItem('tiptaptoe-username');
+        section.querySelector('#playerName').innerText = localStorage.getItem(LOCALSTORAGE_USERNAME_KEY);
 
         _showSectionById("game-returninguser");
     } else {
@@ -45,7 +49,7 @@ document.getElementById('userConfigBtn').addEventListener('click', showUserConfi
 document.getElementById('createNewUserBtn').addEventListener('click', () => _showSectionById("game-newuser"));
 
 const playReturningUser = function() {
-    _startGame(localStorage.getItem('tiptaptoe-username'));
+    _startGame(localStorage.getItem(LOCALSTORAGE_USERNAME_KEY));
 }
 document.getElementById('playOldUserBtn').addEventListener('click', playReturningUser);
 
@@ -120,12 +124,12 @@ document.getElementById('levelSubmitBtns').addEventListener('click', levelSubmit
 /**
  * TODO: make fishes run fast out of screen
  */
-const fishClicked = function() {
-    console.log('fish clicked');
-}
+// const fishClicked = function() {
+//     console.log('fish clicked');
+// }
 
-const fishesInAquarium = document.querySelectorAll('.fish-swimming');
-fishesInAquarium.forEach(fish => fish.addEventListener('click', fishClicked));
+// const fishesInAquarium = document.querySelectorAll('.fish-swimming');
+// fishesInAquarium.forEach(fish => fish.addEventListener('click', fishClicked));
 
 const cellClicked = function(e) {
     const grid_id = +e.target.id.split("_")[1];
@@ -287,9 +291,9 @@ const _gameOver = function() {
     document.getElementById('game-over-starved').innerText = scoreCard._missed;
     document.getElementById('game-over-wasted').innerText = scoreCard._wronged;
     
-    setLocalStorageAndUpdateDataBase(localStorage.getItem('tiptaptoe-username'), finalscore);
+    setLocalStorageAndUpdateDataBase(localStorage.getItem(LOCALSTORAGE_USERNAME_KEY), finalscore);
     
-    document.getElementById('game-over-highscore').innerText = localStorage.getItem('tiptaptoe-highscore');
+    document.getElementById('game-over-highscore').innerText = localStorage.getItem(LOCALSTORAGE_HIGHSCORE_KEY);
     const currentScoreEl = document.getElementById('current-score');
     currentScoreEl.innerText = finalscore;
     if(finalscore <= 0) currentScoreEl.classList.add('red-border-font');
