@@ -9,12 +9,12 @@
   },
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/salyadav/gundoosmean-client"
   },
   "author": "saloni yadav",
   "license": "ISC",
   "bugs": {
-    "url": ""
+    "url": "https://github.com/salyadav/gundoosmean-client/issues"
   },
   "homepage": "",
   "dependencies": {
