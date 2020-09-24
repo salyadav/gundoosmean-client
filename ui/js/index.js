@@ -18,6 +18,9 @@ import {
 const scoreCard = new ScoreCard();
 const levelManager = new LevelManager();
 
+/**
+ * TODO: shift this to a constants file
+ */
 const TAUNT_TOLERANCE = 2;
 const LOCALSTORAGE_HIGHSCORE_KEY = "gundooz-highscore";
 const LOCALSTORAGE_USERNAME_KEY = "gundooz-username";
@@ -166,7 +169,8 @@ const getLeaderBoard = function() {
     leaderboardWindow.querySelector('table').innerHTML = '';
     fetchLeaderboard()
     .then(res => {
-        _showLeaderboardView(true, res.data);
+        _showUserRank(res.data.userRank);
+        _showLeaderboardView(true, res.data.topTen);
     })
     .catch(err => {
         console.log('Some error fetching leaderboard.');
@@ -473,4 +477,8 @@ const _showFeedbackView = function(closeCallback) {
     };
 
     sendMessageBtn.addEventListener("click", onSendEventHandler);
+}
+
+const _showUserRank = function(rank) {
+    document.getElementById('userRank').querySelector('span').innerText = rank;
 }

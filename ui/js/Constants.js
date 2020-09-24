@@ -1,0 +1,33 @@
+export default Constants = {
+    TAUNT_TOLERANCE: 2,
+    LOCALSTORAGE_HIGHSCORE_KEY: "gundooz-highscore",
+    LOCALSTORAGE_USERNAME_KEY: "gundooz-username",
+    RESTRICTED_KEYWORDS: ["null", "undefined"],
+    CORRECT_SCORE: 10,
+    MISSED_SCORE: -10,
+    WRONGED_SCORE: -5,
+    BASE_URL: "https://gundoosmean-server.herokuapp.com/",
+    TAUNTS: [
+        "Sigh. You don't even have to move from your couch to do this. Can't you do better?",
+        "This is what happens when you use your brain as a stepney.",
+        "Look. Penguins can't be vegan okay? Go feed my fish.",
+        "Hey you're melting all my ice and now you're starving my fish ????",
+        "Ooooh good job. If you were trying to disappoint.",
+        "With memory like that, are you sure you remember your name?",
+        "Yo brain so smoll, it's a floppy disk.",
+        "Okay you really need to get your brain tested. This isn't normal.",
+        "You should have stayed as apes -_-",
+        "Twinkle Twinkle tiny brain, Why you give me so much pain?",
+        "Are you trying to make snails feel fast?",
+        "Your neurons fire like chilled water.",
+        "I am sorry for your loss. Memory loss.",
+        "Erm. Are you sure you know English? Feed. The. Fish.",
+        "Thank you for participating in this experiment. We now know that humans are idiots.",
+        "Are you crying yet? You should be.",
+        "You can't hide the score you know? I'll know.",
+        "Your brain is scrambled eggs -_-",
+        "Obliviate! Is useless on you.",
+        "It's not illegal for penguins to commit murder. Remember that.",
+        "You bimbling bumbling babboon!"
+    ]
+}

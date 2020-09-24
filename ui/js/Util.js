@@ -1,9 +1,15 @@
 import axios from 'axios';
 
+/** 
+ * Shift these to a constants file
+ * Change all localstorage string to constants val
+ */
 const CORRECT_SCORE = 10;
 const MISSED_SCORE = -10;
 const WRONGED_SCORE = -5;
 const BASE_URL = "https://gundoosmean-server.herokuapp.com/";
+// const BASE_URL = "http://localhost:5000/";
+
 
 const TARGET_COUNT_MAP = (function(){ //Map because - might want to add other attributes to level later
     const countMap = new Map();
@@ -144,7 +150,8 @@ export const checkForUniqueUserName = (username) => {
             username: username
         }
     }).then(res => {
-        console.log("usercheck successful.");
+        console.log("usercheck successful. Clearing localStorage of stale user data...");
+        localStorage.clear();
         return {
             success: true,
             data: res.data
@@ -159,8 +166,13 @@ export const checkForUniqueUserName = (username) => {
 }
 
 export const fetchLeaderboard = () => {
-    const url = BASE_URL + "leaderboard/getTopTen";
-    return axios.get(url);
+    // const url = BASE_URL + "leaderboard/getTopTen";
+    const url = BASE_URL + "leaderboard/getTopTenAndUserRank";
+    return axios.get(url, { 
+        params: {
+            username: localStorage.getItem('gundooz-username')
+        }
+    });
 }
 
 export const randomIntGenerator = limit => {
