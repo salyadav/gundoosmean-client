@@ -29,7 +29,8 @@ export default {
         "Your brain is scrambled eggs -_-",
         "Obliviate! Is useless on you.",
         "It's not illegal for penguins to commit murder. Remember that.",
-        "You bimbling bumbling babboon!"
+        "You bimbling bumbling babboon!",
+        "Your bogart must be your brain. :)"
     ],
     CELL_FISH_STYLE_CLASSES: [
         "cell-fish-1",
@@ -39,12 +40,5 @@ export default {
         "cell-fish-5",
         "cell-fish-6",
         "cell-fish-7"
-    ],
-    TAUNT_PENGUINE_STYLE_CLASSES: [
-        "taunt-penguine-1",
-        "taunt-penguine-2",
-        "taunt-penguine-3",
-        "taunt-penguine-4",
-        "taunt-penguine-5"
     ]
 }

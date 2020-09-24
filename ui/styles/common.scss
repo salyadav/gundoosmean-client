@@ -49,7 +49,6 @@ $placeholder-color:  rgba(181, 199, 231, 0.396);
 @mixin background-img-config {
     background-repeat: no-repeat;
     background-size: contain;
-    // background-origin: content-box;
 }
 
 * {
@@ -142,7 +141,6 @@ p {
 
 .music {
     background-image: url('../assets/music.svg');
-    // background-image: url('../assets/icons8-audio-48.png');
 }
 
 .no-music {
@@ -171,24 +169,8 @@ p {
     }
 }
 
-.taunt-penguine-1 {
-    background-image: url('../assets/penguin_1.svg');
-}
-
-.taunt-penguine-2 {
-    background-image: url('../assets/penguin_2.svg');
-}
-
-.taunt-penguine-3 {
-    background-image: url('../assets/penguin_3.svg');
-}
-
-.taunt-penguine-4 {
-    background-image: url('../assets/penguin_4.svg');
-}
-
-.taunt-penguine-5 {
-    background-image: url('../assets/penguin_5.svg');
+.taunt-penguin {
+    background-image: url('../assets/dashboard_penguin.svg');
 }
 
 .green-border-font {

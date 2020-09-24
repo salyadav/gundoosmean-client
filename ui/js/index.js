@@ -8,7 +8,6 @@ import {
     getTargetCountForLevel, 
     cellFishSelector,
     tauntSelector,
-    penguinSelector,
     setLocalStorageAndUpdateDataBase,
     checkForUniqueUserName,
     calculateFinalScore,
@@ -52,12 +51,16 @@ document.getElementById('playOldUserBtn').addEventListener('click', playReturnin
 
 const playNewUser = function() {
     const nameField = document.getElementById('fname');
-    const username = nameField.value.toLowerCase();
+    let username = nameField.value;
     const regex = new RegExp(Constants.USERNAME_REGEX);
     const responseEl = document.getElementById('usernameResponse');
 
     //Invalid username
-    if(!username || username.length<5 || username.length>30 || !regex.test(username)) {
+    if(!username 
+        || username.length<5 
+        || username.length>30 
+        || !regex.test(username)
+        || Constants.RESTRICTED_KEYWORDS.includes(username.toLowerCase().trim())) {
         nameField.style.animation = 'highlightcell 0.6s 2';
         responseEl.classList.remove('hideComponent');
 
@@ -69,6 +72,7 @@ const playNewUser = function() {
         return;
     }
 
+    username = username.toLowerCase().trim();
     responseEl.classList.add('hideComponent');
     _addLoadingIcon(document.getElementById('playNewUserBtn'));
     //Unique username from database
@@ -362,9 +366,6 @@ const _displayTimerView = function(sec, min) {
 const _displayTauntView = function() {
     _showSectionById("game-taunts");
     document.querySelector('.taunt-bubble-text').innerText = tauntSelector();
-    const penguin = document.getElementById('taunt-icon');
-    penguin.removeAttribute('class');
-    penguin.setAttribute('class', penguinSelector());
 
     const tauntViewTimeout = setTimeout(()=> {
         _showSectionById("game-playground");
