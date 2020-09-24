@@ -1,15 +1,5 @@
 import axios from 'axios';
-
-/** 
- * Shift these to a constants file
- * Change all localstorage string to constants val
- */
-const CORRECT_SCORE = 10;
-const MISSED_SCORE = -10;
-const WRONGED_SCORE = -5;
-const BASE_URL = "https://gundoosmean-server.herokuapp.com/";
-// const BASE_URL = "http://localhost:5000/";
-
+import Constants from './Constants';
 
 const TARGET_COUNT_MAP = (function(){ //Map because - might want to add other attributes to level later
     const countMap = new Map();
@@ -29,50 +19,10 @@ const TARGET_COUNT_MAP = (function(){ //Map because - might want to add other at
     return countMap;
 })();
 
-const CELL_FISH_STYLE_CLASSES = [
-    "cell-fish-1",
-    "cell-fish-2",
-    "cell-fish-3",
-    "cell-fish-4",
-    "cell-fish-5",
-    "cell-fish-6",
-    "cell-fish-7"
-];
-
-/**
- * TODO: bad practice - find a better way to do this
- */
-const TAUNT_PENGUINE_STYLE_CLASSES = [
-    "taunt-penguine-1",
-    "taunt-penguine-2",
-    "taunt-penguine-3",
-    "taunt-penguine-4",
-    "taunt-penguine-5"
-];
-
-/**
- * TODO: move it to database and fetch from there once asynchronously while starting the game
- * Sarcasm generator API
-*/
-const TAUNTS = [
-    "Sigh. You don't even have to move from your couch to do this. Can't you do better?",
-    "This is what happens when you use your brain as a stepney.",
-    "Look. Penguins can't be vegan okay? Go feed my fish.",
-    "Hey you're melting all my ice and now you're starving my fish ????",
-    "Ooooh good job. If you were trying to disappoint.",
-    "With memory like that, are you sure you remember your name?",
-    "Yo brain so smoll, it's a floppy disk.",
-    "Okay you really need to get your brain tested. This isn't normal.",
-    "You should have stayed as apes -_-",
-    "Twinkle Twinkle tiny brain, Why you give me so much pain?",
-    "Are you trying to make snails feel fast?",
-    "Your neurons fire like chilled water."
-];
-
-let TAUNTS_UNUSED = TAUNTS.slice();
+let TAUNTS_UNUSED = Constants.TAUNTS.slice();
 
 const submitScore = () => { 
-    const url = BASE_URL + "leaderboard/submitScore";
+    const url = Constants.BASE_URL + "leaderboard/submitScore";
     let tryAgainFlag = false;
     const username = localStorage.getItem('gundooz-username');
     const highscore = localStorage.getItem('gundooz-highscore');
@@ -102,10 +52,10 @@ const submitScore = () => {
 }
 
 export const setLocalStorageAndUpdateDataBase = (username, highscore=0) => {
-    localStorage.setItem('gundooz-username', username);
-    const currenthighscore = localStorage.getItem('gundooz-highscore');
+    localStorage.setItem(Constants.LOCALSTORAGE_USERNAME_KEY, username);
+    const currenthighscore = localStorage.getItem(Constants.LOCALSTORAGE_HIGHSCORE_KEY);
     if(!currenthighscore || (currenthighscore < highscore)) {
-        localStorage.setItem('gundooz-highscore', highscore);
+        localStorage.setItem(Constants.LOCALSTORAGE_HIGHSCORE_KEY, highscore);
     }
     try {
         submitScore();
@@ -119,12 +69,12 @@ export const getTargetCountForLevel = (lvl=1) => {
 }
 
 export const cellFishSelector = () => {
-    const index = randomIntGenerator(CELL_FISH_STYLE_CLASSES.length);
-    return CELL_FISH_STYLE_CLASSES[index];
+    const index = randomIntGenerator(Constants.CELL_FISH_STYLE_CLASSES.length);
+    return Constants.CELL_FISH_STYLE_CLASSES[index];
 }
 
 export const tauntSelector = () => {
-    if (TAUNTS_UNUSED.length<1) TAUNTS_UNUSED = TAUNTS.slice();
+    if (TAUNTS_UNUSED.length<1) TAUNTS_UNUSED = Constants.TAUNTS.slice();
     const index = randomIntGenerator(TAUNTS_UNUSED.length);
     const taunt = TAUNTS_UNUSED[index];
     TAUNTS_UNUSED.splice(index, 1);
@@ -132,8 +82,8 @@ export const tauntSelector = () => {
 }
 
 export const penguinSelector = () => {
-    const index = randomIntGenerator(TAUNT_PENGUINE_STYLE_CLASSES.length);
-    return TAUNT_PENGUINE_STYLE_CLASSES[index];
+    const index = randomIntGenerator(Constants.TAUNT_PENGUINE_STYLE_CLASSES.length);
+    return Constants.TAUNT_PENGUINE_STYLE_CLASSES[index];
 }
 
 export const stringToHtml = str => {
@@ -144,7 +94,7 @@ export const stringToHtml = str => {
 
 //returns a promise
 export const checkForUniqueUserName = (username) => {
-    const url = BASE_URL + "leaderboard/checkUsername";
+    const url = Constants.BASE_URL + "leaderboard/checkUsername";
     return axios.get(url, {
         params: {
             username: username
@@ -167,10 +117,10 @@ export const checkForUniqueUserName = (username) => {
 
 export const fetchLeaderboard = () => {
     // const url = BASE_URL + "leaderboard/getTopTen";
-    const url = BASE_URL + "leaderboard/getTopTenAndUserRank";
+    const url = Constants.BASE_URL + "leaderboard/getTopTenAndUserRank";
     return axios.get(url, { 
         params: {
-            username: localStorage.getItem('gundooz-username')
+            username: localStorage.getItem(Constants.LOCALSTORAGE_USERNAME_KEY)
         }
     });
 }
@@ -181,15 +131,15 @@ export const randomIntGenerator = limit => {
 
 export const calculateFinalScore = (scorecard) => {
     const finalscore = 
-        (scorecard._scored * CORRECT_SCORE) +
-        (scorecard._missed * MISSED_SCORE) + 
-        (scorecard._wronged * WRONGED_SCORE);
+        (scorecard._scored * Constants.CORRECT_SCORE) +
+        (scorecard._missed * Constants.MISSED_SCORE) + 
+        (scorecard._wronged * Constants.WRONGED_SCORE);
     return finalscore;
 }
 
 export const saveFeedbackToDB = (feedback, email = '') => {
-    const username = localStorage.getItem('gundooz-username');
-    const url = BASE_URL + "feedback/submitFeedback";
+    const username = localStorage.getItem(Constants.LOCALSTORAGE_USERNAME_KEY);
+    const url = Constants.BASE_URL + "feedback/submitFeedback";
     return axios.post(url, {
         username: username, 
         feedback:feedback, 

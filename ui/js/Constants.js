@@ -1,4 +1,4 @@
-export default Constants = {
+export default {
     TAUNT_TOLERANCE: 2,
     LOCALSTORAGE_HIGHSCORE_KEY: "gundooz-highscore",
     LOCALSTORAGE_USERNAME_KEY: "gundooz-username",
@@ -7,6 +7,7 @@ export default Constants = {
     MISSED_SCORE: -10,
     WRONGED_SCORE: -5,
     BASE_URL: "https://gundoosmean-server.herokuapp.com/",
+    USERNAME_REGEX: "[a-zA-Z0-9\s_-]*$",
     TAUNTS: [
         "Sigh. You don't even have to move from your couch to do this. Can't you do better?",
         "This is what happens when you use your brain as a stepney.",
@@ -29,5 +30,21 @@ export default Constants = {
         "Obliviate! Is useless on you.",
         "It's not illegal for penguins to commit murder. Remember that.",
         "You bimbling bumbling babboon!"
+    ],
+    CELL_FISH_STYLE_CLASSES: [
+        "cell-fish-1",
+        "cell-fish-2",
+        "cell-fish-3",
+        "cell-fish-4",
+        "cell-fish-5",
+        "cell-fish-6",
+        "cell-fish-7"
+    ],
+    TAUNT_PENGUINE_STYLE_CLASSES: [
+        "taunt-penguine-1",
+        "taunt-penguine-2",
+        "taunt-penguine-3",
+        "taunt-penguine-4",
+        "taunt-penguine-5"
     ]
 }

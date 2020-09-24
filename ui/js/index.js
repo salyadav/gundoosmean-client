@@ -2,6 +2,7 @@ import ScoreCard from './ScoreCard';
 import LevelManager from './LevelManager';
 import LevelGenerator from './LevelGenerator';
 import CheckboxGrid from './CheckboxGrid';
+import Constants from './Constants';
 
 import { 
     getTargetCountForLevel, 
@@ -18,14 +19,6 @@ import {
 const scoreCard = new ScoreCard();
 const levelManager = new LevelManager();
 
-/**
- * TODO: shift this to a constants file
- */
-const TAUNT_TOLERANCE = 2;
-const LOCALSTORAGE_HIGHSCORE_KEY = "gundooz-highscore";
-const LOCALSTORAGE_USERNAME_KEY = "gundooz-username";
-const RESTRICTED_KEYWORDS = ["null", "undefined"];
-
 let gametimer = null;
 const timeoutMap = new Map();
 timeoutMap.set('levelSubmitTimeout', null);
@@ -40,9 +33,9 @@ const showRules = function() {
 document.getElementById('showRulesBtn').addEventListener('click', showRules);
 
 const showUserConfigView = function() {
-    if(localStorage.getItem(LOCALSTORAGE_USERNAME_KEY)) {
+    if(localStorage.getItem(Constants.LOCALSTORAGE_USERNAME_KEY)) {
         const section = document.getElementById('game-returninguser');
-        section.querySelector('#playerName').innerText = localStorage.getItem(LOCALSTORAGE_USERNAME_KEY);
+        section.querySelector('#playerName').innerText = localStorage.getItem(Constants.LOCALSTORAGE_USERNAME_KEY);
 
         _showSectionById("game-returninguser");
     } else {
@@ -53,14 +46,14 @@ document.getElementById('userConfigBtn').addEventListener('click', showUserConfi
 document.getElementById('createNewUserBtn').addEventListener('click', () => _showSectionById("game-newuser"));
 
 const playReturningUser = function() {
-    _startGame(localStorage.getItem(LOCALSTORAGE_USERNAME_KEY));
+    _startGame(localStorage.getItem(Constants.LOCALSTORAGE_USERNAME_KEY));
 }
 document.getElementById('playOldUserBtn').addEventListener('click', playReturningUser);
 
 const playNewUser = function() {
     const nameField = document.getElementById('fname');
     const username = nameField.value.toLowerCase();
-    const regex = new RegExp('^[a-zA-Z0-9_-]*$');
+    const regex = new RegExp(Constants.USERNAME_REGEX);
     const responseEl = document.getElementById('usernameResponse');
 
     //Invalid username
@@ -119,7 +112,7 @@ const levelSubmit = function(e) {
                 _gameOver();
             } else {
                 ++levelManager._currentLevel;
-                if(validationStat.targetMissed.length+validationStat.targetWrong.length>TAUNT_TOLERANCE)
+                if(validationStat.targetMissed.length+validationStat.targetWrong.length>Constants.TAUNT_TOLERANCE)
                     _displayTauntView();
                 else
                     _showGridView(levelManager._currentLevel);
@@ -308,9 +301,9 @@ const _gameOver = function() {
     document.getElementById('game-over-starved').innerText = scoreCard._missed;
     document.getElementById('game-over-wasted').innerText = scoreCard._wronged;
     
-    setLocalStorageAndUpdateDataBase(localStorage.getItem(LOCALSTORAGE_USERNAME_KEY), finalscore);
+    setLocalStorageAndUpdateDataBase(localStorage.getItem(Constants.LOCALSTORAGE_USERNAME_KEY), finalscore);
     
-    document.getElementById('game-over-highscore').innerText = localStorage.getItem(LOCALSTORAGE_HIGHSCORE_KEY);
+    document.getElementById('game-over-highscore').innerText = localStorage.getItem(Constants.LOCALSTORAGE_HIGHSCORE_KEY);
     const currentScoreEl = document.getElementById('current-score');
     currentScoreEl.innerText = finalscore;
     if(finalscore <= 0) currentScoreEl.classList.add('red-border-font');
