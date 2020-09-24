@@ -42,6 +42,7 @@ const showUserConfigView = function() {
     }
 }
 document.getElementById('userConfigBtn').addEventListener('click', showUserConfigView);
+document.getElementById('directuserConfigBtn').addEventListener('click', showUserConfigView);
 document.getElementById('createNewUserBtn').addEventListener('click', () => _showSectionById("game-newuser"));
 
 const playReturningUser = function() {
