@@ -30,7 +30,9 @@ export default {
         "Obliviate! Is useless on you.",
         "It's not illegal for penguins to commit murder. Remember that.",
         "You bimbling bumbling babboon!",
-        "Your bogart must be your brain. :)"
+        "Your bogart must be your brain. :)",
+        "Are you Alice in Blunderland?",
+        "I hope all your pizzas have pineapples."
     ],
     CELL_FISH_STYLE_CLASSES: [
         "cell-fish-1",

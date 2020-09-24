@@ -1,7 +1,6 @@
 export default class LevelGenerator {
     constructor(level, targetCount) {
         this._level = level;
-        // this._targetCount = targetCount;
         this._gridSize = this._generateGridSize(level);
         this._targetLocations = this._generateTargetLocations(targetCount);
         this._displayTime = this._generateDisplayTime(level);
@@ -10,10 +9,6 @@ export default class LevelGenerator {
     get level() {
         return this._level;
     }
-
-    // get targetCount() {
-    //     return this._targetCount;
-    // }
 
     get gridSize() {
         return this._gridSize;
@@ -31,10 +26,6 @@ export default class LevelGenerator {
         this._level = level;
     }
 
-    // set targetCount(targetCount) {
-    //     this._targetCount = targetCount;
-    // }
-
     set gridSize(gridSize) {
         this._gridSize = gridSize;
     }
@@ -48,10 +39,10 @@ export default class LevelGenerator {
     }
 
     _generateDisplayTime(level) {
-        if (level==1) {
-            return 1200;
+        if (level<3) {
+            return 1500;
         } else if(level<=6) {
-            return Math.floor((level - 1)/4 + 1)*800;
+            return Math.floor((level - 1)/4 + 1)*1000;
         } else if (level < 14) {
             return Math.floor((level - 1)/4 + 1)*500;
         } else {
@@ -60,7 +51,6 @@ export default class LevelGenerator {
     }
 
     _generateTargetLocations(targetCount, level) {
-        // const gridSize = _generateGridSize(level);
         const targetSet = new Set();
         while(targetSet.size!==targetCount) {
             const limit = this._gridSize*this._gridSize;

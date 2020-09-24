@@ -81,11 +81,6 @@ export const tauntSelector = () => {
     return taunt;
 }
 
-// export const penguinSelector = () => {
-//     const index = randomIntGenerator(Constants.TAUNT_PENGUINE_STYLE_CLASSES.length);
-//     return Constants.TAUNT_PENGUINE_STYLE_CLASSES[index];
-// }
-
 export const stringToHtml = str => {
     const parser = new DOMParser();
     const el = parser.parseFromString(str, 'text/html');
