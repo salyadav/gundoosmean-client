@@ -8,6 +8,10 @@ export default {
     WRONGED_SCORE: -5,
     BASE_URL: "https://gundoosmean-server.herokuapp.com/",
     USERNAME_REGEX: "[a-zA-Z0-9\s_-]*$",
+    TAUNT_TYPE: {
+        CASUAL: "casual",
+        GIVEUP: "giveup"
+    },
     TAUNTS: [
         "Sigh. You don't even have to move from your couch to do this. Can't you do better?",
         "This is what happens when you use your brain as a stepney.",
@@ -32,7 +36,17 @@ export default {
         "You bimbling bumbling babboon!",
         "Your bogart must be your brain. :)",
         "Are you Alice in Blunderland?",
-        "I hope all your pizzas have pineapples."
+        "I hope all your pizzas have pineapples.",
+        "Row row row your boat, gently down the stream, and don't come back -_- ",
+        "Hocus Pocus, YOU NEED TO FOCUS!",
+        "And you say goldfish have the smallest memory span? Ahem. Ahem."
+    ],
+    GIVEUP_TAUNTS: [
+        "I'll be even more menacing next time...",
+        "Why don’t you rather give up on torturing us?",
+        "Look who's heating up like the planet.",
+        "Lost steam, have we?",
+        "Ahem. Ahem. Giving up, are we?"
     ],
     CELL_FISH_STYLE_CLASSES: [
         "cell-fish-1",

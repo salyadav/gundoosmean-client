@@ -13,10 +13,15 @@
     <div id='game-controls'>
         <div id='musicBtn' class='control-btn music' title='Control music'></div>
         <div id='storyBtn' class='control-btn story' title='Gundooz story'></div>
-        <div id='heartBtn' style='visibility: hidden;' class='control-btn send-heart' title='Send some love!'></div>
+        <div id='topTenBtn' class='control-btn top-ten' title='Top Ten Scores'></div>
+        <div id='thankyouBtn' style='display:none;' class='control-btn thankyou' title='Special mentions'></div>
+        <div id='heartBtn' style='display:none;' class='control-btn send-heart' title='Send some love!'></div>
     </div>
     <section id='game-dashboard' class='dashboard'>
-        <h1 class='section-head'>Gundoo's Mean &#169;</h1>
+        <div>
+            <h1 class='section-head'>Gundoo's Mean &#169;</h1>
+            <div class='footnote-font'>Frankenstein- <a href='https://www.linkedin.com/in/saloni-yadav/' class='green-border-font'>Saloni Yadav</a></div>
+        </div>
         <img class='bouncerimg bounce' src="./ui/assets/dashboard_penguin.svg" alt="Bouncing penguine">
         <div>
             <button id='directuserConfigBtn' class='blackBtn'>Play</button>
@@ -123,7 +128,10 @@
                 </div>
             </li>
         </ul>
-        <button id='leaderboardBtn' class='blackBtn'>Top 10</button>
+        <div>
+            <button id='leaderboardBtn' class='blackBtn'>Top 10</button>
+            <button id='replayBtn' class='blackBtn'>Again!</button>
+        </div>
     </section>
     <section id='scoreMathWindow' class='window hideComponent'>
         <div class='popup'>
@@ -141,7 +149,7 @@
     </section>
     <section id='leaderboardWindow' class='window hideComponent' style='overflow-y:scroll'>
         <div class='popup'>
-            <h2>Did you make it to the top ten?</h2>
+            <h2 id='leaderboardWindowTitle'>Did you make it to the top ten?</h2>
             <img class='loader' src="./ui/assets/loading.gif" alt="loading..." />
             <table class='hideComponent'>
                 <!-- <tr>
@@ -178,6 +186,14 @@
                 I am starving here, and it's all your fault. 
                 Now go and make up for it. Feed my fish.
             </p>
+            <div class="close">&times;</div>
+        </div>
+    </section>
+    <section id='thankyouWindow' class='window hideComponent'>
+        <div class='popup'>
+            <h1 class='green-border-font section-subhead'>Special mentions</h1>
+            <h2>The evil author of Gundoo'z insults:</h2>
+            <h3 class='green-border-font footnote-font'><a href="https://www.linkedin.com/in/ashwinipetchiappan/">Ashwini Petchiappan</a></h3>
             <div class="close">&times;</div>
         </div>
     </section>

@@ -81,6 +81,11 @@ export const tauntSelector = () => {
     return taunt;
 }
 
+export const giveupTauntSelector = () => {
+    const index = randomIntGenerator(Constants.GIVEUP_TAUNTS.length);
+    return Constants.GIVEUP_TAUNTS[index];
+}
+
 export const stringToHtml = str => {
     const parser = new DOMParser();
     const el = parser.parseFromString(str, 'text/html');

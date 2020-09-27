@@ -155,6 +155,14 @@ p {
     background-image: url('../assets/script.svg');
 }
 
+.thankyou {
+    background-image: url('../assets/thank-you.svg');
+}
+
+.top-ten {
+    background-image: url('../assets/winner.svg');
+}
+
 .control-btn {
     @include background-img-config;
     background-origin: content-box;
@@ -181,6 +189,10 @@ p {
     @include red-border-font;
 }
 
+.footnote-font {
+    @include small-font;
+}
+
 .dashboard {
     display: flex;
     flex-direction: column;
@@ -188,6 +200,10 @@ p {
     width: 100vw;
     align-items: center;
     justify-content: center;
+
+    h1 {
+        margin-bottom: 0;
+    }
 }
 
 .section-head {

@@ -12,7 +12,8 @@ import {
     checkForUniqueUserName,
     calculateFinalScore,
     fetchLeaderboard,
-    saveFeedbackToDB
+    saveFeedbackToDB,
+    giveupTauntSelector
 } from './Util';
 
 const scoreCard = new ScoreCard();
@@ -125,15 +126,20 @@ const levelSubmit = function(e) {
         },2000);
         timeoutMap.set('levelSubmitTimeout', levelSubmitTimeout);
     } else if(e.target.id === "reBtn") { 
-        //TODO: show warning and ask for confirmation
-        scoreCard.reset();
-        levelManager._currentLevel = 1;
-        _gameTimer();
-        _showGridView(levelManager._currentLevel);
+        _displayTauntView(Constants.TAUNT_TYPE.GIVEUP);
+        setTimeout(()=> {
+            playAgain();
+        }, 3000);
     }
 }
 document.getElementById('levelSubmitBtns').addEventListener('click', levelSubmit);
 
+const playAgain = function() {
+    scoreCard.reset();
+    levelManager._currentLevel = 1;
+    _startGame(localStorage.getItem(Constants.LOCALSTORAGE_USERNAME_KEY));
+}
+document.getElementById('replayBtn').addEventListener('click', playAgain);
 /**
  * TODO: make fishes run fast out of screen
  */
@@ -158,10 +164,23 @@ const scoreMathHelp = function() {
 }
 document.getElementById('scoreMathBtn').addEventListener('click', scoreMathHelp);
 
-const getLeaderBoard = function() {
+const getLeaderBoard = function(event) {
     const leaderboardWindow = document.getElementById('leaderboardWindow');
+    const previousSectionView = currentSectionView;
+    const onCloseCallback = () => {
+        _showSectionById(previousSectionView);
+    }
+    leaderboardWindow.querySelector('.close').addEventListener('click', onCloseCallback);
+    
     _showSectionById('leaderboardWindow');
-    leaderboardWindow.querySelector('.close').addEventListener('click', () =>  _showSectionById('game-over'));
+
+    if (event.target.id === "topTenBtn") {
+        leaderboardWindow.querySelector('#leaderboardWindowTitle').innerText = `I sense a competitive mind there!`;
+        leaderboardWindow.querySelector('#userRank').style.visibility = 'hidden';
+    } else {
+        leaderboardWindow.querySelector('#leaderboardWindowTitle').innerText = `Did you make it to the top 10?`;
+        leaderboardWindow.querySelector('#userRank').style.visibility = 'visible';
+    }
 
     leaderboardWindow.querySelector('.loader').classList.remove('hideComponent');
     leaderboardWindow.querySelector('table').innerHTML = '';
@@ -176,6 +195,7 @@ const getLeaderBoard = function() {
     });
 }
 document.getElementById('leaderboardBtn').addEventListener('click', getLeaderBoard);
+document.getElementById('topTenBtn').addEventListener('click', getLeaderBoard);
 
 const gameControlBtnClicked = function(event) {
     const previousSectionView = currentSectionView;
@@ -194,6 +214,11 @@ const gameControlBtnClicked = function(event) {
             break;
         case 'heartBtn':
             _showFeedbackView(onCloseCallback);
+            break;
+        case 'thankyouBtn':
+            _showThankyouWindowView(onCloseCallback);
+            break;
+        case 'topTenBtn':
             break;
         default: 
             return;
@@ -239,7 +264,6 @@ const _showSectionById = function(id) {
 }
 
 const _startGame = function(username) {
-    //TODO: remove onclick event listener from the floating fishes
     _constructAvatar(username);
     _showSectionById("game-playground");
     _toggleControlPanelView();
@@ -298,7 +322,7 @@ const _gameOver = function() {
     const finalscore = calculateFinalScore(scoreCard);
     _showSectionById('game-over');
     
-    _showSubmitFeedbackBtn();
+    _updateControlPanelBtns();
     _toggleControlPanelView();
     
     //update and display highscore
@@ -364,14 +388,14 @@ const _displayTimerView = function(sec, min) {
     document.getElementById('game-timer').innerText = display;
 }
 
-const _displayTauntView = function() {
+const _displayTauntView = function(tauntType = Constants.TAUNT_TYPE.CASUAL) {
     _showSectionById("game-taunts");
-    document.querySelector('.taunt-bubble-text').innerText = tauntSelector();
+    document.querySelector('.taunt-bubble-text').innerText = tauntType === Constants.TAUNT_TYPE.GIVEUP ? giveupTauntSelector() : tauntSelector();
 
     const tauntViewTimeout = setTimeout(()=> {
         _showSectionById("game-playground");
         _showGridView(levelManager._currentLevel);
-    }, 4000);
+    }, 2000);
     timeoutMap.set('tauntViewTimeout', tauntViewTimeout);
 }
 
@@ -417,8 +441,10 @@ const _toggleControlPanelView = function() {
     }
 }
 
-const _showSubmitFeedbackBtn = function() {
-    document.getElementById('heartBtn').style.visibility = 'visible';
+const _updateControlPanelBtns = function() {
+    document.getElementById('topTenBtn').style.display = 'none';
+    document.getElementById('thankyouBtn').style.display = 'block';
+    document.getElementById('heartBtn').style.display = 'block';
 }
 
 const _musicBtnClicked = function() {
@@ -472,6 +498,12 @@ const _showFeedbackView = function(closeCallback) {
     };
 
     sendMessageBtn.addEventListener("click", onSendEventHandler);
+}
+
+const _showThankyouWindowView = function(closeCallback) {
+    _showSectionById('thankyouWindow');
+    const storyWindow = document.getElementById('thankyouWindow');
+    storyWindow.querySelector('.close').addEventListener('click', closeCallback);
 }
 
 const _showUserRank = function(rank) {
