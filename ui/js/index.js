@@ -126,10 +126,12 @@ const levelSubmit = function(e) {
         },2000);
         timeoutMap.set('levelSubmitTimeout', levelSubmitTimeout);
     } else if(e.target.id === "reBtn") { 
+        timeoutMap.forEach((val, key) => clearTimeout(val));
         _displayTauntView(Constants.TAUNT_TYPE.GIVEUP);
-        setTimeout(()=> {
-            playAgain();
-        }, 3000);
+        scoreCard.reset();
+        levelManager._currentLevel = 1;
+        _gameTimer();
+        _showGridView(levelManager._currentLevel);
     }
 }
 document.getElementById('levelSubmitBtns').addEventListener('click', levelSubmit);
