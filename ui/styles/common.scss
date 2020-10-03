@@ -22,27 +22,33 @@ $placeholder-color:  rgba(181, 199, 231, 0.396);
 @mixin green-border-font {
     @include font-border($black-color);
     color: $seagreen-color;
+    padding: 5px;
 }
 
 @mixin red-border-font {
     @include font-border($black-color);
+    padding: 5px;
     color: #b94242;
 }
 
 @mixin blue-border-font {
     color: #3F51B5;
+    padding: 5px;
     @include font-border(#3f51b5b8);
 }
 
 @mixin large-font {
+    padding: 5px;
     font-size: 10vmin;
 }
 
 @mixin medium-font {
+    padding: 5px;
     font-size: 6vmin;
 }
 
 @mixin small-font {
+    padding: 5px;
     font-size: 4.5vmin;
 }
 

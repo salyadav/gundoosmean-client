@@ -53,10 +53,14 @@
         <h1 class='section-head'>What shall we call you?</h1>
         <div>
             <label for="fname" class='section-subhead'>Honorable-</label><br>
-            <input id='fname' type='text' minlength="5" maxlength="30" autocomplete="off" spellcheck="false" placeholder='The creative you...'></input>
+            <input id='fname' type='text' minlength="5" maxlength="30" autocomplete="off" spellcheck="false" 
+                placeholder='The creative you...' list='existing-user'></input>
+            <datalist id='existing-user'>
+                <!-- options -->
+            </datalist>
         </div>
         <h2 id='usernameResponse' class='hideComponent'></h2>
-        <!-- <div class='configBtn'> -->
+        <!-- <div> -->
             <button id='playNewUserBtn' class='blackBtn'>Let's Play!
                 <img class='loader hideComponent' src="./ui/assets/loading.gif" alt="loading..." />
             </button>

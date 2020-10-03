@@ -13,7 +13,9 @@ import {
     calculateFinalScore,
     fetchLeaderboard,
     saveFeedbackToDB,
-    giveupTauntSelector
+    giveupTauntSelector,
+    addToExistingUsersList,
+    checkForExistingLocalUser
 } from './Util';
 
 const scoreCard = new ScoreCard();
@@ -53,7 +55,7 @@ document.getElementById('playOldUserBtn').addEventListener('click', playReturnin
 
 const playNewUser = function() {
     const nameField = document.getElementById('fname');
-    let username = nameField.value;
+    let username = nameField.value.toLowerCase().trim();
     const regex = new RegExp(Constants.USERNAME_REGEX);
     const responseEl = document.getElementById('usernameResponse');
 
@@ -62,7 +64,7 @@ const playNewUser = function() {
         || username.length<5 
         || username.length>30 
         || !regex.test(username)
-        || Constants.RESTRICTED_KEYWORDS.includes(username.toLowerCase().trim())) {
+        || Constants.RESTRICTED_KEYWORDS.includes(username)) {
         nameField.style.animation = 'highlightcell 0.6s 2';
         responseEl.classList.remove('hideComponent');
 
@@ -74,29 +76,38 @@ const playNewUser = function() {
         return;
     }
 
-    username = username.toLowerCase().trim();
+    // username = username.toLowerCase().trim();
     responseEl.classList.add('hideComponent');
     _addLoadingIcon(document.getElementById('playNewUserBtn'));
-    //Unique username from database
-    checkForUniqueUserName(username)
-    .then(res => {
-        _removeLoadingIcon(document.getElementById('playNewUserBtn'));
-        const responseEl = document.getElementById('usernameResponse');
-        if (res.success) {
-            if (res.data) {
-                //say username already exists
-                responseEl.classList.remove('hideComponent');
-                responseEl.innerText = "This one's taken. Surely, you can be more creative!";
+    
+    const existingUserDetail = checkForExistingLocalUser(username);
+    if(existingUserDetail[0]) {
+        setLocalStorageAndUpdateDataBase(username, existingUserDetail[1], true);
+        _startGame(username);
+    } else {
+        //Unique username from database
+        checkForUniqueUserName(username)
+        .then(res => {
+            _removeLoadingIcon(document.getElementById('playNewUserBtn'));
+            const responseEl = document.getElementById('usernameResponse');
+            if (res.success) {
+                if (res.data) {
+                    //say username already exists
+                    responseEl.classList.remove('hideComponent');
+                    responseEl.innerText = "This one's taken. Surely, you can be more creative!";
+                } else {
+                    responseEl.classList.add('hideComponent');
+                    addToExistingUsersList(username);
+                    setLocalStorageAndUpdateDataBase(username); //submit default score 0 - create new user
+                    _startGame(username);
+                }
             } else {
-                responseEl.classList.add('hideComponent');
-                setLocalStorageAndUpdateDataBase(username); //submit default score 0 - create new user
-                _startGame(username);
+                responseEl.classList.remove('hideComponent');
+                responseEl.innerText = "A big fat whale sat over the server. We are trying our best to get it rolling.";
             }
-        } else {
-            responseEl.classList.remove('hideComponent');
-            responseEl.innerText = "A big fat whale sat over the server. We are trying our best to get it rolling.";
-        }
-    });
+        });
+    }
+    
 }
 document.getElementById('playNewUserBtn').addEventListener('click', playNewUser);
 

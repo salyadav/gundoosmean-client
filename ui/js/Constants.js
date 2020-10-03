@@ -2,6 +2,7 @@ export default {
     TAUNT_TOLERANCE: 2,
     LOCALSTORAGE_HIGHSCORE_KEY: "gundooz-highscore",
     LOCALSTORAGE_USERNAME_KEY: "gundooz-username",
+    LOCALSTORAGE_EXISTINGUSERS_KEY: "gundooz-existingusers",
     RESTRICTED_KEYWORDS: ["null", "undefined"],
     CORRECT_SCORE: 10,
     MISSED_SCORE: -10,

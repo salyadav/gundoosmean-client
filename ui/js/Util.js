@@ -51,17 +51,41 @@ const submitScore = () => {
     username && submitScoreAjax();
 }
 
-export const setLocalStorageAndUpdateDataBase = (username, highscore=0) => {
+export const setLocalStorageAndUpdateDataBase = (username, highscore=0, switchingUser=false) => {
     localStorage.setItem(Constants.LOCALSTORAGE_USERNAME_KEY, username);
+    if (switchingUser) {
+        localStorage.setItem(Constants.LOCALSTORAGE_HIGHSCORE_KEY, highscore);
+        return;
+    }
+
     const currenthighscore = localStorage.getItem(Constants.LOCALSTORAGE_HIGHSCORE_KEY);
     if(!currenthighscore || (currenthighscore < highscore)) {
         localStorage.setItem(Constants.LOCALSTORAGE_HIGHSCORE_KEY, highscore);
+        const existingUsersMap = JSON.parse(localStorage.getItem(Constants.LOCALSTORAGE_EXISTINGUSERS_KEY));
+        existingUsersMap[username] = highscore;
     }
     try {
         submitScore();
     } catch(e) {
         console.log('Exception caught at submitscore');
     }
+}
+
+export const addToExistingUsersList = (username) => {
+    let usersMap;
+    if (!localStorage.getItem(Constants.LOCALSTORAGE_EXISTINGUSERS_KEY)) {
+        usersMap = Object.create({});
+    } else {
+        usersMap = JSON.parse(localStorage.getItem(Constants.LOCALSTORAGE_EXISTINGUSERS_KEY));
+    }
+    usersMap[username] = 0;
+    localStorage.setItem(Constants.LOCALSTORAGE_EXISTINGUSERS_KEY, JSON.stringify(usersMap));
+}
+
+export const checkForExistingLocalUser = (username) => {
+    if (!localStorage.getItem(Constants.LOCALSTORAGE_EXISTINGUSERS_KEY)) return false;
+    const usersMap = JSON.parse(localStorage.getItem(Constants.LOCALSTORAGE_EXISTINGUSERS_KEY));
+    return (Object.keys(usersMap).includes(username)) ? [true, usersMap.username] : [false, null];
 }
 
 export const getTargetCountForLevel = (lvl=1) => {

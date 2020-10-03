@@ -37,6 +37,7 @@ FYI to remember-
 LocalStorage data-
 gundooz-username
 gundooz-highscore
+gundooz-existingusers
 
 Thanks for the assets: 
 For loading gif-
