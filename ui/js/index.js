@@ -4,8 +4,8 @@ import LevelGenerator from './LevelGenerator';
 import CheckboxGrid from './CheckboxGrid';
 import Constants from './Constants';
 
-import { 
-    getTargetCountForLevel, 
+import {
+    getTargetCountForLevel,
     cellFishSelector,
     tauntSelector,
     setLocalStorageAndUpdateDataBase,
@@ -35,7 +35,7 @@ const showRules = function() {
 document.getElementById('showRulesBtn').addEventListener('click', showRules);
 
 const showUserConfigView = function() {
-    if(localStorage.getItem(Constants.LOCALSTORAGE_USERNAME_KEY)) {
+    if (localStorage.getItem(Constants.LOCALSTORAGE_USERNAME_KEY)) {
         const section = document.getElementById('game-returninguser');
         section.querySelector('#playerName').innerText = localStorage.getItem(Constants.LOCALSTORAGE_USERNAME_KEY);
 
@@ -51,7 +51,7 @@ const constructNewUserConfigView = function() {
     let optionEl;
     existingUserList && Object.keys(existingUserList).forEach(user => {
         optionEl = `<option value=${user}>`;
-        datalistEl.innerHTML+=optionEl;
+        datalistEl.innerHTML += optionEl;
 
     });
     _showSectionById("game-newuser");
@@ -73,11 +73,11 @@ const playNewUser = function() {
     const responseEl = document.getElementById('usernameResponse');
 
     //Invalid username
-    if(!username 
-        || username.length<5 
-        || username.length>30 
-        || !regex.test(username)
-        || Constants.RESTRICTED_KEYWORDS.includes(username)) {
+    if (!username ||
+        username.length < 5 ||
+        username.length > 30 ||
+        !regex.test(username) ||
+        Constants.RESTRICTED_KEYWORDS.includes(username)) {
         nameField.style.animation = 'highlightcell 0.6s 2';
         responseEl.classList.remove('hideComponent');
 
@@ -92,40 +92,40 @@ const playNewUser = function() {
     // username = username.toLowerCase().trim();
     responseEl.classList.add('hideComponent');
     _addLoadingIcon(document.getElementById('playNewUserBtn'));
-    
+
     const existingUserDetail = checkForExistingLocalUser(username);
-    if(existingUserDetail[0]) {
+    if (existingUserDetail[0]) {
         setLocalStorageAndUpdateDataBase(username, existingUserDetail[1], true);
         _startGame(username);
     } else {
         //Unique username from database
         checkForUniqueUserName(username)
-        .then(res => {
-            _removeLoadingIcon(document.getElementById('playNewUserBtn'));
-            const responseEl = document.getElementById('usernameResponse');
-            if (res.success) {
-                if (res.data) {
-                    //say username already exists
-                    responseEl.classList.remove('hideComponent');
-                    responseEl.innerText = "This one's taken. Surely, you can be more creative!";
+            .then(res => {
+                _removeLoadingIcon(document.getElementById('playNewUserBtn'));
+                const responseEl = document.getElementById('usernameResponse');
+                if (res.success) {
+                    if (res.data) {
+                        //say username already exists
+                        responseEl.classList.remove('hideComponent');
+                        responseEl.innerText = "This one's taken. Surely, you can be more creative!";
+                    } else {
+                        responseEl.classList.add('hideComponent');
+                        addToExistingUsersList(username);
+                        setLocalStorageAndUpdateDataBase(username); //submit default score 0 - create new user
+                        _startGame(username);
+                    }
                 } else {
-                    responseEl.classList.add('hideComponent');
-                    addToExistingUsersList(username);
-                    setLocalStorageAndUpdateDataBase(username); //submit default score 0 - create new user
-                    _startGame(username);
+                    responseEl.classList.remove('hideComponent');
+                    responseEl.innerText = "A big fat whale sat over the server. We are trying our best to get it rolling.";
                 }
-            } else {
-                responseEl.classList.remove('hideComponent');
-                responseEl.innerText = "A big fat whale sat over the server. We are trying our best to get it rolling.";
-            }
-        });
+            });
     }
-    
+
 }
 document.getElementById('playNewUserBtn').addEventListener('click', playNewUser);
 
 const levelSubmit = function(e) {
-    if (e.target.id === "goBtn") { 
+    if (e.target.id === "goBtn") {
         document.getElementById('goBtn').disabled = true;
         document.getElementById('goBtn').style.opacity = 0.5;
 
@@ -137,19 +137,19 @@ const levelSubmit = function(e) {
         _showScoreView();
 
         //show the answer validation for 2 seconds and then move on
-        const levelSubmitTimeout = setTimeout(()=>{
-            if (scoreCard._missed>15) {
+        const levelSubmitTimeout = setTimeout(() => {
+            if (scoreCard._missed > 15) {
                 _gameOver();
             } else {
                 ++levelManager._currentLevel;
-                if(validationStat.targetMissed.length+validationStat.targetWrong.length>Constants.TAUNT_TOLERANCE)
+                if (validationStat.targetMissed.length + validationStat.targetWrong.length > Constants.TAUNT_TOLERANCE)
                     _displayTauntView();
                 else
                     _showGridView(levelManager._currentLevel);
-            } 
-        },2000);
+            }
+        }, 2000);
         timeoutMap.set('levelSubmitTimeout', levelSubmitTimeout);
-    } else if(e.target.id === "reBtn") { 
+    } else if (e.target.id === "reBtn") {
         timeoutMap.forEach((val, key) => clearTimeout(val));
         _displayTauntView(Constants.TAUNT_TYPE.GIVEUP);
         scoreCard.reset();
@@ -186,7 +186,7 @@ const scoreMathHelp = function() {
     const scoreMathWindow = document.getElementById('scoreMathWindow');
     _showSectionById('scoreMathWindow');
 
-    scoreMathWindow.querySelector('.close').addEventListener('click', () =>  _showSectionById('game-over'));
+    scoreMathWindow.querySelector('.close').addEventListener('click', () => _showSectionById('game-over'));
 }
 document.getElementById('scoreMathBtn').addEventListener('click', scoreMathHelp);
 
@@ -197,7 +197,7 @@ const getLeaderBoard = function(event) {
         _showSectionById(previousSectionView);
     }
     leaderboardWindow.querySelector('.close').addEventListener('click', onCloseCallback);
-    
+
     _showSectionById('leaderboardWindow');
 
     if (event.target.id === "topTenBtn") {
@@ -211,14 +211,14 @@ const getLeaderBoard = function(event) {
     leaderboardWindow.querySelector('.loader').classList.remove('hideComponent');
     leaderboardWindow.querySelector('table').innerHTML = '';
     fetchLeaderboard()
-    .then(res => {
-        _showUserRank(res.data.userRank);
-        _showLeaderboardView(true, res.data.topTen);
-    })
-    .catch(err => {
-        console.log('Some error fetching leaderboard.');
-        _showLeaderboardView(false);
-    });
+        .then(res => {
+            _showUserRank(res.data.userRank);
+            _showLeaderboardView(true, res.data.topTen);
+        })
+        .catch(err => {
+            console.log('Some error fetching leaderboard.');
+            _showLeaderboardView(false);
+        });
 }
 document.getElementById('leaderboardBtn').addEventListener('click', getLeaderBoard);
 document.getElementById('topTenBtn').addEventListener('click', getLeaderBoard);
@@ -246,7 +246,7 @@ const gameControlBtnClicked = function(event) {
             break;
         case 'topTenBtn':
             break;
-        default: 
+        default:
             return;
     }
 }
@@ -261,7 +261,7 @@ const _gameTimer = function() {
 
     let seconds = 60;
     let minutes = 2;
-    gametimer = setInterval(()=> {
+    gametimer = setInterval(() => {
         --seconds;
         _displayTimerView(seconds, minutes);
         if (seconds === 0 && minutes === 0) {
@@ -279,7 +279,7 @@ const _showSectionById = function(id) {
     currentSectionView = id;
     const sectionList = document.querySelectorAll('section');
     sectionList.forEach(section => {
-        if(section.id === id) {
+        if (section.id === id) {
             section.classList.remove('hideComponent');
             section.classList.add('dashboard');
         } else {
@@ -302,28 +302,28 @@ const _showGridView = function(level) {
     const levelMetrix = new LevelGenerator(level, getTargetCountForLevel(level));
     const grid = new CheckboxGrid(levelMetrix._gridSize, levelMetrix._gridSize);
     const centralGrid = document.querySelector('#centralGrid');
-    
+
     //disable click while the fishes are visible
-    centralGrid.removeEventListener('click', cellClicked); 
+    centralGrid.removeEventListener('click', cellClicked);
     grid.destructGrid(centralGrid);
     centralGrid.appendChild(grid.constructGrid());
-    
+
     //show and hide fish after timeout, enable next button, enable cell click
     const targetSet = levelMetrix._targetLocations;
     levelManager._targetSet = targetSet;
     levelManager.clearSelectedSet();
     const cellStyle = cellFishSelector();
-    for(let key of targetSet) {
-        centralGrid.querySelector('#gridid_'+key).classList.add(cellStyle);
+    for (let key of targetSet) {
+        centralGrid.querySelector('#gridid_' + key).classList.add(cellStyle);
     }
 
-    const gridViewTimeout = setTimeout(function(set, root, style){
-        for(let key of set) {
-            root.querySelector('#gridid_'+key).classList.remove(style);
+    const gridViewTimeout = setTimeout(function(set, root, style) {
+        for (let key of set) {
+            root.querySelector('#gridid_' + key).classList.remove(style);
         }
         document.getElementById('goBtn').disabled = false;
         document.getElementById('goBtn').style.opacity = 1;
-        
+
         //enable click only when fishes dissappear
         root.addEventListener('click', cellClicked);
     }, levelMetrix._displayTime, targetSet, centralGrid, cellStyle);
@@ -337,31 +337,31 @@ const _showGridView = function(level) {
     //show next(disabled) and restart button
     document.getElementById('goBtn').disabled = true;
     document.getElementById('goBtn').style.opacity = 0.5;
-    
+
 }
 
 const _gameOver = function() {
     //clear all timers/timeout
     timeoutMap.forEach((val, key) => clearTimeout(val));
-    
+
     //display gameover view
     const finalscore = calculateFinalScore(scoreCard);
     _showSectionById('game-over');
-    
+
     _updateControlPanelBtns();
     _toggleControlPanelView();
-    
+
     //update and display highscore
     document.getElementById('game-over-fed').innerText = scoreCard._scored;
     document.getElementById('game-over-starved').innerText = scoreCard._missed;
     document.getElementById('game-over-wasted').innerText = scoreCard._wronged;
-    
+
     setLocalStorageAndUpdateDataBase(localStorage.getItem(Constants.LOCALSTORAGE_USERNAME_KEY), finalscore);
-    
+
     document.getElementById('game-over-highscore').innerText = localStorage.getItem(Constants.LOCALSTORAGE_HIGHSCORE_KEY);
     const currentScoreEl = document.getElementById('current-score');
     currentScoreEl.innerText = finalscore;
-    if(finalscore <= 0) currentScoreEl.classList.add('red-border-font');
+    if (finalscore <= 0) currentScoreEl.classList.add('red-border-font');
     else currentScoreEl.classList.add('green-border-font');
 }
 
@@ -397,15 +397,15 @@ const _showLevelView = function() {
 const _displayValidationView = function(validationArray) {
     const grid = document.getElementById('game-grid');
     for (let key of validationArray.targetMissed) {
-        grid.querySelector('#gridid_'+key).classList.add('cell-missed');
+        grid.querySelector('#gridid_' + key).classList.add('cell-missed');
     }
-    
+
     for (let key of validationArray.targetCorrect) {
-        grid.querySelector('#gridid_'+key).classList.add('cell-correct');
+        grid.querySelector('#gridid_' + key).classList.add('cell-correct');
     }
 
     for (let key of validationArray.targetWrong) {
-        grid.querySelector('#gridid_'+key).classList.add('cell-wrong');
+        grid.querySelector('#gridid_' + key).classList.add('cell-wrong');
     }
 }
 
@@ -418,19 +418,19 @@ const _displayTauntView = function(tauntType = Constants.TAUNT_TYPE.CASUAL) {
     _showSectionById("game-taunts");
     document.querySelector('.taunt-bubble-text').innerText = tauntType === Constants.TAUNT_TYPE.GIVEUP ? giveupTauntSelector() : tauntSelector();
 
-    const tauntViewTimeout = setTimeout(()=> {
+    const tauntViewTimeout = setTimeout(() => {
         _showSectionById("game-playground");
         _showGridView(levelManager._currentLevel);
     }, 2000);
     timeoutMap.set('tauntViewTimeout', tauntViewTimeout);
 }
 
-const _showLeaderboardView = function(success, data=[]) {
+const _showLeaderboardView = function(success, data = []) {
     const leaderboardWindow = document.getElementById('leaderboardWindow');
     const tableView = leaderboardWindow.querySelector('table');
     let table;
     //inner table construction
-    if(success) {
+    if (success) {
         table = `
         <tr>
             <th>#</th>
@@ -439,7 +439,7 @@ const _showLeaderboardView = function(success, data=[]) {
         </tr>
         `;
         let row;
-        for (let i=0; i<data.length; i++) {
+        for (let i = 0; i < data.length; i++) {
             row = `
                 <tr>
                     <td>${i+1}</td>
@@ -447,12 +447,12 @@ const _showLeaderboardView = function(success, data=[]) {
                     <td>${data[i].highscore}</td>
                 </tr>
             `;
-            table+=row;
+            table += row;
         }
     } else {
         table = `<div class='red-border-font'>A killer shark attacked the server! We will update you next time. Don't worry, your highscore is safe though.</div>`;
     }
-    
+
     leaderboardWindow.querySelector('.loader').classList.add('hideComponent');
     tableView.classList.remove('hideComponent');
     tableView.innerHTML = table;
@@ -460,7 +460,7 @@ const _showLeaderboardView = function(success, data=[]) {
 
 const _toggleControlPanelView = function() {
     const controlPanelEl = document.getElementById('game-controls');
-    if(controlPanelEl.style.display === 'none') {
+    if (controlPanelEl.style.display === 'none') {
         controlPanelEl.style.display = 'flex';
     } else {
         controlPanelEl.style.display = 'none';
@@ -476,7 +476,7 @@ const _updateControlPanelBtns = function() {
 const _musicBtnClicked = function() {
     const audio = document.querySelector('.audio');
     const musicIcon = document.querySelector('#musicBtn');
-    if(audio.paused) {
+    if (audio.paused) {
         audio.play();
         musicIcon.classList.remove('no-music');
         musicIcon.classList.add('music');
@@ -498,19 +498,19 @@ const _showFeedbackView = function(closeCallback) {
     const sendMessageWindow = document.getElementById('sendMessageWindow');
     const sendMessageBtn = sendMessageWindow.querySelector('#sendMsgBtn');
     sendMessageWindow.querySelector('.close').addEventListener('click', closeCallback);
-    
+
     const onSendEventHandler = () => {
         const email = sendMessageWindow.querySelector("input[type='email']");
         const msg = sendMessageWindow.querySelector("textarea[id='message']");
-        if(msg.value.length===0) {
+        if (msg.value.length === 0) {
             msg.style.animation = 'highlightcell 0.6s 2';
-            return; 
+            return;
         }
 
         sendMessageWindow.querySelector('.loader').classList.remove('hideComponent');
         saveFeedbackToDB(msg.value, email.value).then(res => {
             sendMessageWindow.querySelector('.loader').classList.add('hideComponent');
-            
+
             if (res) {
                 sendMessageBtn.classList.remove('send-msg');
                 sendMessageBtn.classList.add('green-border-font');

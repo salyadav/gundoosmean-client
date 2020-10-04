@@ -9,7 +9,7 @@ export default {
     WRONGED_SCORE: -5,
     MAX_ALLOWED_USER_IN_DEVICE: 6,
     BASE_URL: "https://gundoosmean-server.herokuapp.com/",
-    USERNAME_REGEX: "^[a-zA-Z0-9_-]$",
+    USERNAME_REGEX: "^[a-zA-Z0-9_-]*$",
     TAUNT_TYPE: {
         CASUAL: "casual",
         GIVEUP: "giveup"
