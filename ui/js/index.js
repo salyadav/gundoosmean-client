@@ -49,7 +49,7 @@ const constructNewUserConfigView = function() {
     const existingUserList = JSON.parse(localStorage.getItem(Constants.LOCALSTORAGE_EXISTINGUSERS_KEY));
     const datalistEl = document.getElementById('existing-user');
     let optionEl;
-    Object.keys(existingUserList).forEach(user => {
+    existingUserList && Object.keys(existingUserList).forEach(user => {
         optionEl = `<option value=${user}>`;
         datalistEl.innerHTML+=optionEl;
 
