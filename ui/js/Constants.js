@@ -7,6 +7,7 @@ export default {
     CORRECT_SCORE: 10,
     MISSED_SCORE: -10,
     WRONGED_SCORE: -5,
+    MAX_ALLOWED_USER_IN_DEVICE: 6,
     BASE_URL: "https://gundoosmean-server.herokuapp.com/",
     USERNAME_REGEX: "[a-zA-Z0-9_-]*$",
     TAUNT_TYPE: {

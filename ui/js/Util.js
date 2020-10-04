@@ -77,6 +77,10 @@ export const addToExistingUsersList = (username) => {
         usersMap = Object.create({});
     } else {
         usersMap = JSON.parse(localStorage.getItem(Constants.LOCALSTORAGE_EXISTINGUSERS_KEY));
+        const usersList = Object.keys(usersMap);
+        if (usersList.length === Constants.MAX_ALLOWED_USER_IN_DEVICE) {
+            delete usersMap[usersList[0]];
+        }
     }
     usersMap[username] = 0;
     localStorage.setItem(Constants.LOCALSTORAGE_EXISTINGUSERS_KEY, JSON.stringify(usersMap));
@@ -125,7 +129,8 @@ export const checkForUniqueUserName = (username) => {
         }
     }).then(res => {
         console.log("usercheck successful. Clearing localStorage of stale user data...");
-        localStorage.clear();
+        localStorage.removeItem(Constants.LOCALSTORAGE_USERNAME_KEY);
+        localStorage.removeItem(Constants.LOCALSTORAGE_HIGHSCORE_KEY);
         return {
             success: true,
             data: res.data

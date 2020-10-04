@@ -84,7 +84,7 @@ const playNewUser = function() {
         if (!username) {
             responseEl.innerText = `Even "He who must not be named" had a name.`;
         } else {
-            responseEl.innerText = `Common, give us a cool name between 5-30 characters, and don't try anything spooky!`;
+            responseEl.innerText = `Common, give us a cool name between 5-30 characters, no spaces please!`;
         }
         return;
     }
