@@ -8,7 +8,7 @@ export default {
     MISSED_SCORE: -10,
     WRONGED_SCORE: -5,
     BASE_URL: "https://gundoosmean-server.herokuapp.com/",
-    USERNAME_REGEX: "[a-zA-Z0-9\s_-]*$",
+    USERNAME_REGEX: "[a-zA-Z0-9_-]*$",
     TAUNT_TYPE: {
         CASUAL: "casual",
         GIVEUP: "giveup"

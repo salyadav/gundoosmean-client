@@ -41,12 +41,25 @@ const showUserConfigView = function() {
 
         _showSectionById("game-returninguser");
     } else {
-        _showSectionById("game-newuser");
+        constructNewUserConfigView();
     }
 }
+
+const constructNewUserConfigView = function() {
+    const existingUserList = JSON.parse(localStorage.getItem(Constants.LOCALSTORAGE_EXISTINGUSERS_KEY));
+    const datalistEl = document.getElementById('existing-user');
+    let optionEl;
+    Object.keys(existingUserList).forEach(user => {
+        optionEl = `<option value=${user}>`;
+        datalistEl.innerHTML+=optionEl;
+
+    });
+    _showSectionById("game-newuser");
+}
+
 document.getElementById('userConfigBtn').addEventListener('click', showUserConfigView);
 document.getElementById('directuserConfigBtn').addEventListener('click', showUserConfigView);
-document.getElementById('createNewUserBtn').addEventListener('click', () => _showSectionById("game-newuser"));
+document.getElementById('createNewUserBtn').addEventListener('click', constructNewUserConfigView);
 
 const playReturningUser = function() {
     _startGame(localStorage.getItem(Constants.LOCALSTORAGE_USERNAME_KEY));
