@@ -388,6 +388,7 @@ const _removeLoadingIcon = function(parentId) {
 const _showScoreView = function() {
     document.getElementById('scored').innerText = scoreCard._scored;
     document.getElementById('missed').innerText = scoreCard._missed;
+    document.getElementById('wasted').innerText = scoreCard._wronged;
 }
 
 const _showLevelView = function() {
