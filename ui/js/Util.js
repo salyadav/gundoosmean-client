@@ -24,8 +24,8 @@ let TAUNTS_UNUSED = Constants.TAUNTS.slice();
 const submitScore = () => { 
     const url = Constants.BASE_URL + "leaderboard/submitScore";
     let tryAgainFlag = false;
-    const username = localStorage.getItem('gundooz-username');
-    const highscore = localStorage.getItem('gundooz-highscore');
+    const username = localStorage.getItem(Constants.LOCALSTORAGE_USERNAME_KEY);
+    const highscore = localStorage.getItem(Constants.LOCALSTORAGE_HIGHSCORE_KEY);
     
     const submitScoreAjax = () => {
         axios.post(url, {
@@ -48,7 +48,8 @@ const submitScore = () => {
         });
     }
 
-    username && submitScoreAjax();
+    if(username) 
+    	submitScoreAjax();
 }
 
 export const setLocalStorageAndUpdateDataBase = (username, highscore=0, switchingUser=false) => {
