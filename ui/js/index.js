@@ -177,6 +177,8 @@ document.getElementById('replayBtn').addEventListener('click', playAgain);
 // fishesInAquarium.forEach(fish => fish.addEventListener('click', fishClicked));
 
 const cellClicked = function(e) {
+    if(e.target.id=="game-grid")
+        return;
     const grid_id = +e.target.id.split("_")[1];
     levelManager.updateSelectedSet(grid_id);
     e.target.classList.toggle('cell-catch');
