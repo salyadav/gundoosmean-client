@@ -34,6 +34,9 @@ const showRules = function() {
 }
 document.getElementById('showRulesBtn').addEventListener('click', showRules);
 
+let vh = window.innerHeight * 0.01;
+document.documentElement.style.setProperty('--vh', `${vh}px`);
+
 const showUserConfigView = function() {
     if (localStorage.getItem(Constants.LOCALSTORAGE_USERNAME_KEY)) {
         const section = document.getElementById('game-returninguser');
