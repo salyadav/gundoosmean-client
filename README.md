@@ -17,12 +17,6 @@ Todo:
 1. Code, security, performance -
 a. add assets to netlify CDN to improve access time.
 
-2. Functionality -
-a. show warning and ask for confirmation on RE button --P2
-b. Allow space but trim while saving - username --P3
-c. Add restart button to the end of the game
-d. add play directly to skip rules on the front Page
-
 3. Ui/ux -
 a. all window size will have diff width. add scrollable-y to all just in case  --P1
 b. add pulse styling to timer for last 10 seconds 
