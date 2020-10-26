@@ -3,7 +3,7 @@ It's Live!!!
 https://gundoosmean.netlify.app/
 
 How to get it running in your local (for first timers):
-1. Install parcel if you don't have it already -
+1. Install parcel if you don't have it already:
     `npm install -g parcel`
 2. Download all dependencies required in node_modules:
     `npm install`
