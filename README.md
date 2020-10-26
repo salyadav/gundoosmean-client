@@ -1,8 +1,8 @@
-#It's Live!!!
+# It's Live!!!
 
 https://gundoosmean.netlify.app/
 
-##Game Rules:
+## Game Rules:
 1. You will see some fish surfacing, asking for food.
 2. They stay only for a while and then... Poof! Vanish.
 3. Your goal is to remember their locations and feed them peanuts.
@@ -10,9 +10,9 @@ https://gundoosmean.netlify.app/
 5. Honey, you can't afford to make too many mistakes and you don't have forever!
 
 
-##For the programmers interested to contribute-
+## For the programmers interested to contribute-
 
-###How to get it running in your local (for first timers):
+### How to get it running in your local (for first timers):
 1. Install parcel if you don't have it already:
     `npm install -g parcel`
 2. Download all dependencies required in node_modules:
@@ -24,7 +24,7 @@ https://gundoosmean.netlify.app/
     i. Go to build folder in the root folder
     ii. Run index.html for the application
 
-###Todo (off-issues)
+### Todo (off-issues)
 1. Code, security, performance -
 a. add assets to netlify CDN to improve access time.
 
@@ -38,7 +38,7 @@ gundooz-username
 gundooz-highscore
 gundooz-existingusers
 
-##Thank you for the assets: 
+## Thank you for the assets: 
 
 For loading gif-
 https://icons8.com/preloaders/en/circular#
