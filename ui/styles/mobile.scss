@@ -59,11 +59,12 @@ body {
 }
 
 #game-controls {
+    display:block;
     position: absolute;
     bottom: 0;
     display: flex;
     width: 100vw;
-    height: 8vh;
+    height: 10%;
     justify-content: center;
     & > * {
         margin: 5px;
