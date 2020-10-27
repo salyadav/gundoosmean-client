@@ -35,7 +35,7 @@ const showRules = function() {
 document.getElementById('showRulesBtn').addEventListener('click', showRules);
 
 //mobile browser CSS height
-let vh = window.innerHeight * 0.01;
+const vh = window.innerHeight * 0.01;
 document.documentElement.style.setProperty('--vh', `${vh}px`);
 
 window.addEventListener('resize', () => {
