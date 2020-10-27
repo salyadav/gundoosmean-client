@@ -3,6 +3,7 @@ export default class CheckboxGrid {
         this._row = row;
         this._column = column;
     }
+    
     get row() {
         return this._row;
     }

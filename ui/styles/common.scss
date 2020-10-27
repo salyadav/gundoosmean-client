@@ -19,6 +19,7 @@ $placeholder-color:  rgba(181, 199, 231, 0.396);
     -webkit-text-stroke-color: $border-color;
     letter-spacing: 1.6px;
 }
+
 @mixin green-border-font {
     @include font-border($black-color);
     color: $seagreen-color;
@@ -71,10 +72,10 @@ body {
 
 section {
     width: 100vw;
-    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
 }
 
-button {
+button {    
     @include medium-font;
     padding: 20px;
     border-radius: 10px;
@@ -134,6 +135,7 @@ table {
     width: 100%;
     max-height: 60%;
     border: 1px solid black;
+    overflow-y: auto;
 
     th {
         @include green-border-font;
@@ -202,7 +204,7 @@ p {
 .dashboard {
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
     width: 100vw;
     align-items: center;
     justify-content: center;
@@ -382,7 +384,7 @@ p {
     }
 
     table {
-        overflow-y: scroll;
+        overflow-y: auto;
         overflow-x: hidden;
     }
 
