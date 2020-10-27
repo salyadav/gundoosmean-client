@@ -18,8 +18,10 @@ import {
     checkForExistingLocalUser
 } from './Util';
 
-document.ontouchstart = e => e.preventDefault();
-document.ontouchmove = e => e.preventDefault();
+window.onload = () => document.querySelector('body').classList.remove('no-js');
+
+document.addEventListener('ontouchstart', e => e.preventDefault());
+document.addEventListener('ontouchmove', e => e.preventDefault());
 
 const scoreCard = new ScoreCard();
 const levelManager = new LevelManager();

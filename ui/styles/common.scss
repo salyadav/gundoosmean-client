@@ -70,6 +70,17 @@ body {
     background-color: $aquablue-color;
 }
 
+.no-js {
+    *:not(noscript){
+        display: none;
+    }
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    @include red-border-font;
+    @include large-font;
+}
+
 section {
     width: 100vw;
     height: calc(var(--vh, 1vh) * 100);
