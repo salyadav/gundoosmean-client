@@ -52,6 +52,10 @@ body {
     }
 }
 
+#game-buttons {
+        height: 12vh;
+    }
+
 #game-over {
     .score-board li {
         flex-direction: column;
@@ -59,12 +63,11 @@ body {
 }
 
 #game-controls {
-    display:block;
     position: absolute;
-    bottom: 0;
+    bottom: 0vh;
+    vertical-align: bottom;
     display: flex;
     width: 100vw;
-    height: 10%;
     justify-content: center;
     & > * {
         margin: 5px;
