@@ -5,7 +5,9 @@
   "main": "./ui/index.js",
   "scripts": {
     "build": "parcel build index.html --public-url ./",
-    "serve": "parcel index.html"
+    "serve": "parcel index.html",
+    "distclean": "rimraf dist",
+    "clearcache": "rimraf .cache"
   },
   "repository": {
     "type": "git",
