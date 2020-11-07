@@ -22,6 +22,7 @@ body {
     bottom: 20px;
 
     .score-card {
+        @include small-font;
         width: 100vw;
         display: flex;
         & > * {
